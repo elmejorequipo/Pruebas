@@ -3,26 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visor de Conductas - Tercero A</title>
-    <style>
+    <title>Visor de Conductas | Don Bosco | Tercero A</title>
+    
+    <meta name="description" content="Aplicación de seguimiento de conductas y economía de fichas para los estudiantes del Tercero A de Secundaria del Col. Don Bosco Central Particular.">
+    <meta name="keywords" content="educación, gamificación, economía de fichas, seguimiento de conducta, Don Bosco, Santa Cruz, Bolivia">
+    <meta name="author" content="Profesor de Tercero A">
+    <link rel="canonical" href="https://ejorequipo.github.io/"> <meta property="og:title" content="Visor de Conductas | Don Bosco | Tercero A">
+    <meta property="og:description" content="Una forma divertida y motivadora de seguir el progreso en el aula.">
+    <meta property="og:image" content="https://i.imgur.com/example.png"> <meta property="og:url" content="https://ejorequipo.github.io/">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Visor de Conductas | Don Bosco | Tercero A">
+    <meta name="twitter:description" content="Una forma divertida y motivadora de seguir el progreso en el aula.">
+    <meta name="twitter:image" content="https://i.imgur.com/example.png"> <style>
+        /* --- Importar Fuente y Estilos Base --- */
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
+        
         :root {
             --color-primario: #ff8fab; --color-secundario: #84d2f6; --color-adaptativo: #79d2a6; --color-inadaptativo: #ffb38a;
             --color-oro: #ffd700; --color-plata: #c0c0c0; --color-bronce: #cd7f32;
             --color-fondo: #fdf6f8; --color-texto: #574b60; --color-blanco: #fff;
             --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.08); --borde-redondeado: 20px;
         }
-        body { font-family: 'Nunito', sans-serif; background-color: var(--color-fondo); color: var(--color-texto); margin: 0; padding: 20px; line-height: 1.6; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; background-color: var(--color-blanco); border-radius: var(--borde-redondeado); box-shadow: var(--sombra-suave); }
-        header { text-align: center; padding-bottom: 20px; margin-bottom: 30px; }
-        header h1 { color: var(--color-primario); font-weight: 900; font-size: 2.8rem; margin: 0; position: relative; }
-        header h1::after { content: '✨'; font-size: 1.5rem; position: absolute; top: 0; right: 25%; transform: rotate(15deg); }
-        .header-subtitle { font-size: 1.2rem; font-weight: 700; margin: 5px 0; color: var(--color-secundario); }
-        .info-icon { display: inline-block; width: 20px; height: 20px; border-radius: 50%; background-color: #ddd; color: var(--color-blanco); text-align: center; line-height: 20px; font-size: 0.8rem; font-weight: 700; cursor: pointer; margin-left: 8px; transition: all 0.2s; }
-        .info-icon:hover { background-color: var(--color-secundario); transform: scale(1.1); }
+
+        html { font-size: 16px; scroll-behavior: smooth; }
+        body { font-family: 'Nunito', sans-serif; background-color: var(--color-fondo); color: var(--color-texto); margin: 0; padding: 1rem; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 1rem; background-color: var(--color-blanco); border-radius: var(--borde-redondeado); box-shadow: var(--sombra-suave); }
+
+        /* --- Logo Creativo con CSS --- */
+        .logo { display: flex; align-items: flex-end; justify-content: center; height: 50px; gap: 4px; margin-bottom: 1rem; }
+        .logo-bar { width: 12px; background-color: var(--color-secundario); border-radius: 5px; transition: height 0.5s ease; }
+        .logo-bar:nth-child(1) { height: 20px; background-color: var(--color-adaptativo); animation: bounce 2s infinite ease-in-out; }
+        .logo-bar:nth-child(2) { height: 35px; animation: bounce 2s 0.2s infinite ease-in-out; }
+        .logo-bar:nth-child(3) { height: 50px; background-color: var(--color-primario); animation: bounce 2s 0.4s infinite ease-in-out; }
+        @keyframes bounce { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.8); } }
+
+        /* --- Encabezado y Títulos --- */
+        header { text-align: center; padding-bottom: 1rem; margin-bottom: 2rem; }
+        header h1 { color: var(--color-primario); font-weight: 900; font-size: clamp(2rem, 6vw, 2.8rem); margin: 0; }
+        .header-subtitle { font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 700; margin: 5px 0; color: var(--color-secundario); }
+        .section-title { text-align: center; color: var(--color-primario); font-weight: 900; font-size: clamp(1.5rem, 5vw, 2rem); margin: 2.5rem 0 1.5rem 0; }
+        
+        /* --- Contenedores Principales y Rejillas Responsivas --- */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+        #rankingsGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        #behaviorsGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+
+        /* --- Estilos de Tarjetas (Estadísticas, Rankings, etc.) --- */
+        .stat-item, .ranking-card, .behavior-card { background: var(--color-blanco); border-radius: 15px; box-shadow: var(--sombra-suave); padding: 1rem; transition: transform 0.2s; }
+        .stat-item:hover, .ranking-card:hover, .behavior-card:hover { transform: translateY(-5px); }
+        .stat-item { text-align: center; }
+        .stat-item h4 { color: #aaa; text-transform: uppercase; font-size: 0.8rem; font-weight: 700; margin: 10px 0; }
+        .stat-item p { font-size: 1.5rem; font-weight: 900; color: var(--color-texto); margin: 0; word-wrap: break-word; }
+        .stat-icon { width: 40px; height: 40px; margin-bottom: 10px; }
+
+        /* --- Estilos de Ranking Mejorados --- */
+        #rankingsSection h3 { color: var(--color-secundario); font-weight: 700; padding-bottom: 10px; border-bottom: 3px dotted var(--color-secundario); text-align: center; margin-top: 0;}
+        .ranking-card { display: flex; align-items: center; background-color: #f0e8f355; border: 2px solid transparent; }
+        .ranking-card.rank-1 { background: linear-gradient(135deg, #fff7d1, #ffeeb1); border-color: var(--color-oro); transform: scale(1.05); }
+        .ranking-card.rank-2 { background-color: #f0f0f0; border-color: var(--color-plata); }
+        .ranking-card.rank-3 { background-color: #fbeee2; border-color: var(--color-bronce); }
+        .ranking-position { font-size: 1.2rem; font-weight: 900; color: var(--color-primario); width: 30px; }
+        .ranking-icon { width: 35px; height: 35px; margin: 0 10px; }
+        .ranking-name { flex-grow: 1; font-weight: 700; }
+        .rank-1 .ranking-name, .rank-2 .ranking-name, .rank-3 .ranking-name { font-size: 1.1rem; font-weight: 900; }
+        .rank-1 .ranking-name { color: #c7a700; }
+        .ranking-score { font-weight: 900; color: #fff; background-color: var(--color-primario); padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.9rem; }
+        
+        /* --- Lista de Estudiantes --- */
         #studentListContainer { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; margin-top: 20px; }
         .student-item { padding: 12px; background-color: #f0e8f3; border-radius: 15px; text-align: center; font-weight: 700; cursor: pointer; transition: all 0.2s ease-in-out; border-bottom: 4px solid #d9c8e0; }
         .student-item:hover { background-color: var(--color-primario); color: var(--color-blanco); transform: translateY(-4px); border-bottom-color: #e06b8b; box-shadow: var(--sombra-suave); }
+
+        /* --- Vista Individual --- */
+        #resultsContainer { display: none; }
+        #summarySection { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; padding: 1.5rem; background-color: #f0e8f322; border-radius: var(--borde-redondeado); margin-bottom: 2rem; text-align: center; }
+        .summary-item h4 { margin: 0 0 10px 0; color: #aaa; text-transform: uppercase; font-size: 0.9rem; font-weight: 700; display: flex; justify-content: center; align-items: center; }
+        .info-icon { display: inline-block; width: 20px; height: 20px; border-radius: 50%; background-color: #ddd; color: var(--color-blanco); text-align: center; line-height: 20px; font-size: 0.8rem; font-weight: 700; cursor: pointer; margin-left: 8px; transition: all 0.2s; }
+        .info-icon:hover { background-color: var(--color-secundario); transform: scale(1.1); }
+        .summary-item p { margin: 0; font-size: 2.2rem; font-weight: 900; }
+        #scoreDisplay { color: var(--color-primario); }
+        #rankDisplay { color: var(--color-secundario); font-size: 1.8rem; }
+        .progress-bar-container { width: 100%; background-color: #e9ecef; border-radius: 50px; height: 25px; overflow: hidden; margin-top: 5px; border: 3px solid white; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
+        .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, var(--color-adaptativo), #a2e2c2); border-radius: 50px; transition: width 0.8s ease-in-out; }
+        .behavior-column h3 { text-align: center; padding-bottom: 10px; border-bottom: 4px dotted; font-size: 1.5rem; font-weight: 900; }
+        #adaptiveContainer h3 { border-color: var(--color-adaptativo); color: var(--color-adaptativo); }
+        #maladaptiveContainer h3 { border-color: var(--color-inadaptativo); color: var(--color-inadaptativo); }
+        .behavior-icon { width: 50px; height: 50px; margin-right: 1rem; }
+        .behavior-name { flex-grow: 1; font-weight: 700; font-size: 1.1rem; }
+        .behavior-count { font-size: 1.8rem; font-weight: 900; padding: 5px 15px; border-radius: 50px; min-width: 50px; text-align: center; }
+        .adaptive-card .behavior-count { color: var(--color-adaptativo); background-color: #eaf6ec; }
+        .maladaptive-card .behavior-count { color: var(--color-inadaptativo); background-color: #fff4e7; }
+        
+        /* --- Media Queries para Responsividad --- */
+        @media (max-width: 992px) {
+            #rankingsGrid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            #behaviorsGrid { grid-template-columns: 1fr; }
+            .grid-container { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 480px) {
+            body { padding: 10px; }
+            .grid-container { grid-template-columns: 1fr; }
+            .container { padding: 15px; }
+        }
+
+        /* --- Modales --- */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(90, 75, 100, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
         .modal-overlay.visible { opacity: 1; visibility: visible; }
         .modal-content { background: var(--color-blanco); padding: 40px; border-radius: var(--borde-redondeado); text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.3); width: 90%; max-width: 450px; transform: scale(0.9); transition: all 0.3s ease; position:relative; }
@@ -34,43 +122,6 @@
         .modal-content button { width: 100%; padding: 12px; border: none; border-radius: 12px; background-color: var(--color-primario); color: var(--color-blanco); font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all 0.2s; border-bottom: 4px solid #e06b8b; margin-top: 10px; }
         .modal-content button:hover { transform: translateY(-2px); }
         #infoModal .modal-content button { background-color: var(--color-secundario); border-bottom-color: #63b1d8; }
-        #resultsContainer { display: none; }
-        #summarySection { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 20px; background-color: #f0e8f322; border-radius: var(--borde-redondeado); margin-bottom: 30px; text-align: center; }
-        .summary-item h4 { margin: 0 0 10px 0; color: #aaa; text-transform: uppercase; font-size: 0.9rem; font-weight: 700; display: flex; justify-content: center; align-items: center; }
-        .summary-item p { margin: 0; font-size: 2.2rem; font-weight: 900; }
-        #scoreDisplay { color: var(--color-primario); }
-        #rankDisplay { color: var(--color-secundario); font-size: 1.8rem; }
-        .progress-bar-container { width: 100%; background-color: #e9ecef; border-radius: 50px; height: 25px; overflow: hidden; margin-top: 5px; border: 3px solid white; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
-        .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, var(--color-adaptativo), #a2e2c2); border-radius: 50px; transition: width 0.8s ease-in-out; }
-        #behaviorsGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .behavior-column h3 { text-align: center; padding-bottom: 10px; border-bottom: 4px dotted; font-size: 1.5rem; font-weight: 900; }
-        #adaptiveContainer h3 { border-color: var(--color-adaptativo); color: var(--color-adaptativo); }
-        #maladaptiveContainer h3 { border-color: var(--color-inadaptativo); color: var(--color-inadaptativo); }
-        .behavior-card { display: flex; align-items: center; background: var(--color-blanco); padding: 15px; border-radius: 15px; box-shadow: var(--sombra-suave); margin-bottom: 15px; transition: transform 0.2s; }
-        .behavior-card:hover { transform: translateY(-5px); }
-        .behavior-icon { width: 50px; height: 50px; margin-right: 15px; }
-        .behavior-name { flex-grow: 1; font-weight: 700; font-size: 1.1rem; }
-        .behavior-count { font-size: 1.8rem; font-weight: 900; padding: 5px 15px; border-radius: 50px; min-width: 50px; text-align: center; }
-        .adaptive-card .behavior-count { color: var(--color-adaptativo); background-color: #eaf6ec; }
-        .maladaptive-card .behavior-count { color: var(--color-inadaptativo); background-color: #fff4e7; }
-        .section-title { text-align: center; color: var(--color-primario); font-weight: 900; font-size: 2rem; margin: 40px 0 20px 0; }
-        #courseStats { background-color: #f8f9fa; padding: 30px; border-radius: var(--borde-redondeado); margin-bottom: 30px; }
-        .stat-item { background: var(--color-blanco); padding: 20px; border-radius: 15px; box-shadow: var(--sombra-suave); text-align: center; }
-        .stat-item h4 { color: #aaa; text-transform: uppercase; font-size: 0.9rem; font-weight: 700; margin: 10px 0; }
-        .stat-item p { font-size: 1.5rem; font-weight: 900; color: var(--color-texto); margin: 0; }
-        .stat-icon { width: 50px; height: 50px; margin-bottom: 10px; }
-        #rankingsSection h3 { color: var(--color-secundario); font-weight: 700; padding-bottom: 10px; border-bottom: 3px dotted var(--color-secundario); text-align: center;}
-        .ranking-card { display: flex; align-items: center; padding: 10px; margin-bottom: 10px; background-color: #f0e8f355; border-radius: 12px; border: 2px solid transparent; transition: all 0.2s; }
-        .ranking-card:hover { transform: translateX(10px); background-color: #f0e8f3; }
-        .ranking-card.rank-1 { background: linear-gradient(135deg, #fff7d1, #ffeeb1); border-color: var(--color-oro); transform: scale(1.05); }
-        .ranking-card.rank-2 { background-color: #f0f0f0; border-color: var(--color-plata); }
-        .ranking-card.rank-3 { background-color: #fbeee2; border-color: var(--color-bronce); }
-        .ranking-position { font-size: 1.2rem; font-weight: 900; color: var(--color-primario); width: 30px; }
-        .ranking-icon { width: 35px; height: 35px; margin: 0 10px; }
-        .ranking-name { flex-grow: 1; font-weight: 700; }
-        .rank-1 .ranking-name, .rank-2 .ranking-name, .rank-3 .ranking-name { font-size: 1.2rem; font-weight: 900; }
-        .rank-1 .ranking-name { color: #c7a700; }
-        .ranking-score { font-weight: 900; color: #fff; background-color: var(--color-primario); padding: 5px 12px; border-radius: 50px; font-size: 0.9rem; }
         #infoModal.congrats-modal .modal-content { background: linear-gradient(to top, var(--color-blanco), #f0e8f3); border: 3px solid var(--color-primario); }
         #infoModal.congrats-modal h3 { background: -webkit-linear-gradient(45deg, var(--color-primario), var(--color-secundario), var(--color-adaptativo)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         #confetti-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; }
@@ -82,67 +133,79 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <main class="container">
         <header>
+            <div class="logo">
+                <div class="logo-bar"></div>
+                <div class="logo-bar"></div>
+                <div class="logo-bar"></div>
+            </div>
             <h1>Visor de Conductas</h1>
             <p class="header-subtitle">Col. Don Bosco Central Particular</p>
             <p class="header-subtitle">Curso: Tercero "A" de Secundaria</p>
         </header>
-        <section id="courseStats">
-            <h2 class="section-title">Estadísticas Generales del Curso</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">
-                <div class="stat-item" id="avgScoreContainer"></div>
-                <div class="stat-item" id="topStudentContainer"></div>
-                <div class="stat-item" id="mostPositiveContainer"></div>
-                <div class="stat-item" id="mostNegativeContainer"></div>
+
+        <section id="courseStats" aria-labelledby="stats-title">
+            <h2 class="section-title" id="stats-title">Estadísticas Generales del Curso</h2>
+            <div class="grid-container">
+                <article class="stat-item" id="avgScoreContainer"></article>
+                <article class="stat-item" id="topStudentContainer"></article>
+                <article class="stat-item" id="mostPositiveContainer"></article>
+                <article class="stat-item" id="mostNegativeContainer"></article>
             </div>
         </section>
-        <section id="rankingsSection">
-            <h2 class="section-title">Tablas de Clasificación</h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
-                <div id="generalRanking">
-                    <h3>🏆 Ranking General</h3>
+
+        <section id="rankingsSection" aria-labelledby="rankings-title">
+            <h2 class="section-title" id="rankings-title">Tablas de Clasificación</h2>
+            <div id="rankingsGrid">
+                <article id="generalRanking" aria-labelledby="general-ranking-title">
+                    <h3 id="general-ranking-title">🏆 Ranking General</h3>
                     <div id="generalRankingList"></div>
-                </div>
-                <div id="dailyRanking">
-                    <h3>☀️ Ranking del Día</h3>
+                </article>
+                <article id="dailyRanking" aria-labelledby="daily-ranking-title">
+                    <h3 id="daily-ranking-title">☀️ Ranking del Día</h3>
                     <div id="dailyRankingList"></div>
-                </div>
+                </article>
             </div>
         </section>
+        
         <hr style="border: none; border-top: 2px dotted #ddd; margin: 40px 0;">
-        <h2 class="section-title">Progreso Individual</h2>
-        <div id="studentListContainer"></div>
-        <div id="resultsContainer">
-            <section id="summarySection">
-                 <div class="summary-item">
-                    <h4>Puntaje Total <span class="info-icon" data-info="score">?</span></h4>
-                    <p id="scoreDisplay">0</p>
-                </div>
-                <div class="summary-item">
-                    <h4>Rango Actual <span class="info-icon" data-info="rank">?</span></h4>
-                    <p id="rankDisplay">...</p>
-                </div>
-                <div class="summary-item">
-                    <h4>Progreso <span class="info-icon" data-info="progress">?</span></h4>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="progressBar"></div>
+
+        <section aria-labelledby="individual-progress-title">
+            <h2 class="section-title" id="individual-progress-title">Progreso Individual</h2>
+            <nav id="studentListContainer"></nav>
+            <article id="resultsContainer">
+                <section id="summarySection">
+                     <div class="summary-item">
+                        <h4>Puntaje Total <span class="info-icon" data-info="score">?</span></h4>
+                        <p id="scoreDisplay">0</p>
                     </div>
+                    <div class="summary-item">
+                        <h4>Rango Actual <span class="info-icon" data-info="rank">?</span></h4>
+                        <p id="rankDisplay">...</p>
+                    </div>
+                    <div class="summary-item">
+                        <h4>Progreso <span class="info-icon" data-info="progress">?</span></h4>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="progressBar"></div>
+                        </div>
+                    </div>
+                </section>
+                <div id="behaviorsGrid">
+                    <section id="adaptiveContainer" class="behavior-column" aria-labelledby="adaptive-title">
+                        <h3 id="adaptive-title">Conductas Positivas ✨</h3>
+                        <div id="adaptive-list"></div>
+                    </section>
+                    <section id="maladaptiveContainer" class="behavior-column" aria-labelledby="maladaptive-title">
+                        <h3 id="maladaptive-title">Áreas a Mejorar 🎯</h3>
+                        <div id="maladaptive-list"></div>
+                    </section>
                 </div>
-            </section>
-            <section id="behaviorsGrid">
-                <div id="adaptiveContainer" class="behavior-column">
-                    <h3>Conductas Positivas ✨</h3>
-                    <div id="adaptive-list"></div>
-                </div>
-                <div id="maladaptiveContainer" class="behavior-column">
-                    <h3>Áreas a Mejorar 🎯</h3>
-                    <div id="maladaptive-list"></div>
-                </div>
-            </section>
-        </div>
-    </div>
-    <div id="passwordModal" class="modal-overlay">
+            </article>
+        </section>
+    </main>
+
+    <div id="passwordModal" class="modal-overlay" role="dialog" aria-modal="true">
         <div class="modal-content">
              <h3 id="modalTitle">¡Hola! Ingresa tu PIN Secreto</h3>
             <p id="errorMessage" style="color:red;"></p>
@@ -150,7 +213,8 @@
             <button id="verifyPasswordBtn">Entrar</button>
         </div>
     </div>
-    <div id="infoModal" class="modal-overlay">
+
+    <div id="infoModal" class="modal-overlay" role="dialog" aria-modal="true">
         <div class="modal-content">
             <div id="confetti-container"></div>
             <h3 id="infoModalTitle"></h3>
@@ -160,6 +224,7 @@
     </div>
 
     <script>
+        // --- SELECCIÓN DE ELEMENTOS DEL DOM ---
         const studentListContainer = document.getElementById('studentListContainer');
         const passwordModal = document.getElementById('passwordModal');
         const modalTitle = document.getElementById('modalTitle');
@@ -185,59 +250,41 @@
         let selectedStudent = "";
         const allStudentData = {};
         const infoTexts = {
-            score: {
-                title: "ℹ️ ¿Qué es el Puntaje Total?",
-                text: "El Puntaje Total es como el balance de la 'economía de fichas' del estudiante. Se calcula sumando todos los puntos de las conductas positivas y restando los de las áreas a mejorar. Cada conducta positiva suma +20 puntos, y cada área a mejorar resta -10 puntos. ¡Un puntaje alto refleja un gran esfuerzo y actitud!"
-            },
-            rank: {
-                title: "👑 ¿Qué significa el Rango?",
-                text: "El Rango es un reconocimiento divertido por alcanzar ciertos niveles de puntaje. Motiva a los estudiantes a seguir mejorando y coleccionando puntos. Los rangos van desde 'Pequeña Semilla 🌱' hasta 'Sol Radiante ☀️', ¡celebrando cada paso del crecimiento!"
-            },
-            progress: {
-                title: "📊 ¿Qué muestra el Progreso?",
-                text: "Esta barra muestra visualmente qué tan cerca está el estudiante de alcanzar el siguiente gran objetivo de puntaje o el rango más alto. Es una forma fácil de ver el avance y saber que ¡cada pequeño esfuerzo cuenta para llenar la barra!"
-            }
+            score: { title: "ℹ️ ¿Qué es el Puntaje Total?", text: "El Puntaje Total es el balance de la 'economía de fichas'. Se calcula con la fórmula: (Total Conductas Positivas x 20) - (Total Conductas a Mejorar x 10). ¡Un puntaje alto refleja un gran esfuerzo!" },
+            rank: { title: "👑 ¿Qué significa el Rango?", text: "El Rango es un reconocimiento por alcanzar ciertos niveles de puntaje, desde 'Pequeña Semilla 🌱' hasta 'Sol Radiante ☀️', celebrando cada paso del crecimiento." },
+            progress: { title: "📊 ¿Qué muestra el Progreso?", text: "Esta barra muestra visualmente qué tan cerca está el estudiante de alcanzar el siguiente Rango. ¡Cada pequeño esfuerzo cuenta para llenar la barra!" }
         };
         const studentNames = [
-            "Ana", "Bruno", "Carla", "David", "Elena", "Fernando", "Gabriela", "Hugo", "Isabel", "Javier",
-            "Laura", "Mateo", "Nora", "Óscar", "Paula", "Quintín", "Raquel", "Sergio", "Teresa", "Ulises",
-            "Valeria", "Walter", "Ximena", "Yago", "Zoe", "Andrés", "Beatriz", "Carlos", "Diana", "Esteban",
-            "Fátima", "Gerardo", "Helena", "Iván", "Jimena", "Kevin", "Lucía", "Marcos", "Natalia", "Pablo"
+            "Ana", "Bruno", "Carla", "David", "Elena", "Fernando", "Gabriela", "Hugo", "Isabel", "Javier", "Laura", "Mateo", "Nora", "Óscar", "Paula", "Quintín", "Raquel", "Sergio", "Teresa", "Ulises",
+            "Valeria", "Walter", "Ximena", "Yago", "Zoe", "Andrés", "Beatriz", "Carlos", "Diana", "Esteban", "Fátima", "Gerardo", "Helena", "Iván", "Jimena", "Kevin", "Lucía", "Marcos", "Natalia", "Pablo"
         ];
+        
+        // --- LÓGICA DE LA APLICACIÓN ---
         studentNames.forEach(name => {
             const studentElement = document.createElement('div');
             studentElement.className = 'student-item';
+            studentElement.setAttribute('role', 'button');
+            studentElement.setAttribute('tabindex', '0');
             studentElement.textContent = name;
             studentListContainer.appendChild(studentElement);
         });
+
         function fetchDummyData(studentName) {
-            if (allStudentData[studentName]) {
-                return Promise.resolve(allStudentData[studentName]);
-            }
+            if (allStudentData[studentName]) return Promise.resolve(allStudentData[studentName]);
             const dictionary = {
                 adaptive: [
-                    { name: "Participación Voluntaria", icon: "https://cdn-icons-png.flaticon.com/512/2995/2995459.png" },
-                    { name: "Ayuda a Pares", icon: "https://cdn-icons-png.flaticon.com/512/8157/8157973.png" },
-                    { name: "Entrega a Tiempo", icon: "https://cdn-icons-png.flaticon.com/512/2666/2666235.png" },
-                    { name: "Puntualidad y Preparación", icon: "https://cdn-icons-png.flaticon.com/512/2857/2857413.png" },
-                    { name: "Esfuerzo y Perseverancia", icon: "https://cdn-icons-png.flaticon.com/512/4346/4346769.png" },
-                    { name: "Colaboración en Equipo", icon: "https://cdn-icons-png.flaticon.com/512/3301/3301548.png" },
-                    { name: "Escucha Activa", icon: "https://cdn-icons-png.flaticon.com/512/4800/4800885.png" },
-                    { name: "Iniciativa Positiva", icon: "https://cdn-icons-png.flaticon.com/512/3653/3653194.png" },
-                    { name: "Cuidado del Entorno", icon: "https://cdn-icons-png.flaticon.com/512/10014/10014361.png" },
-                    { name: "Seguimiento de Indicaciones", icon: "https://cdn-icons-png.flaticon.com/512/3063/3063831.png" },
+                    { name: "Participación Voluntaria", icon: "https://cdn-icons-png.flaticon.com/512/2995/2995459.png" }, { name: "Ayuda a Pares", icon: "https://cdn-icons-png.flaticon.com/512/8157/8157973.png" },
+                    { name: "Entrega a Tiempo", icon: "https://cdn-icons-png.flaticon.com/512/2666/2666235.png" }, { name: "Puntualidad y Preparación", icon: "https://cdn-icons-png.flaticon.com/512/2857/2857413.png" },
+                    { name: "Esfuerzo y Perseverancia", icon: "https://cdn-icons-png.flaticon.com/512/4346/4346769.png" }, { name: "Colaboración en Equipo", icon: "https://cdn-icons-png.flaticon.com/512/3301/3301548.png" },
+                    { name: "Escucha Activa", icon: "https://cdn-icons-png.flaticon.com/512/4800/4800885.png" }, { name: "Iniciativa Positiva", icon: "https://cdn-icons-png.flaticon.com/512/3653/3653194.png" },
+                    { name: "Cuidado del Entorno", icon: "https://cdn-icons-png.flaticon.com/512/10014/10014361.png" }, { name: "Seguimiento de Indicaciones", icon: "https://cdn-icons-png.flaticon.com/512/3063/3063831.png" },
                 ],
                 maladaptive: [
-                    { name: "Interrupción de la Clase", icon: "https://cdn-icons-png.flaticon.com/512/2899/2899853.png" },
-                    { name: "Falta de Material", icon: "https://cdn-icons-png.flaticon.com/512/8659/8659556.png" },
-                    { name: "Interacción Negativa con Pares", icon: "https://cdn-icons-png.flaticon.com/512/5725/5725966.png" },
-                    { name: "Fuera de Tarea", icon: "https://cdn-icons-png.flaticon.com/512/10410/10410147.png" },
-                    { name: "Entrega Tardía", icon: "https://cdn-icons-png.flaticon.com/512/10691/10691866.png" },
-                    { name: "Incumplimiento de Indicaciones", icon: "https://cdn-icons-png.flaticon.com/512/2338/2338416.png" },
-                    { name: "Levantarse sin Permiso", icon: "https://cdn-icons-png.flaticon.com/512/2097/2097513.png" },
-                    { name: "Uso Inadecuado de Material", icon: "https://cdn-icons-png.flaticon.com/512/7517/7517564.png" },
-                    { name: "Actitud Desafiante", icon: "https://cdn-icons-png.flaticon.com/512/7474/7474776.png" },
-                    { name: "Llegada Tarde", icon: "https://cdn-icons-png.flaticon.com/512/3238/3238125.png" },
+                    { name: "Interrupción de la Clase", icon: "https://cdn-icons-png.flaticon.com/512/2899/2899853.png" }, { name: "Falta de Material", icon: "https://cdn-icons-png.flaticon.com/512/8659/8659556.png" },
+                    { name: "Interacción Negativa con Pares", icon: "https://cdn-icons-png.flaticon.com/512/5725/5725966.png" }, { name: "Fuera de Tarea", icon: "https://cdn-icons-png.flaticon.com/512/10410/10410147.png" },
+                    { name: "Entrega Tardía", icon: "https://cdn-icons-png.flaticon.com/512/10691/10691866.png" }, { name: "Incumplimiento de Indicaciones", icon: "https://cdn-icons-png.flaticon.com/512/2338/2338416.png" },
+                    { name: "Levantarse sin Permiso", icon: "https://cdn-icons-png.flaticon.com/512/2097/2097513.png" }, { name: "Uso Inadecuado de Material", icon: "https://cdn-icons-png.flaticon.com/512/7517/7517564.png" },
+                    { name: "Actitud Desafiante", icon: "https://cdn-icons-png.flaticon.com/512/7474/7474776.png" }, { name: "Llegada Tarde", icon: "https://cdn-icons-png.flaticon.com/512/3238/3238125.png" },
                 ]
             };
             const data = {
@@ -284,13 +331,9 @@
             updateRankingsAndStats();
         }
         function createBehaviorCard(behavior, type) {
-            const card = document.createElement('div');
+            const card = document.createElement('article');
             card.className = `behavior-card ${type}-card`;
-            card.innerHTML = `
-                <img src="${behavior.icon}" alt="${behavior.name}" class="behavior-icon">
-                <span class="behavior-name">${behavior.name}</span>
-                <span class="behavior-count">${behavior.count}</span>
-            `;
+            card.innerHTML = `<img src="${behavior.icon}" alt="Icono para ${behavior.name}" class="behavior-icon"><span class="behavior-name">${behavior.name}</span><span class="behavior-count">${behavior.count}</span>`;
             return card;
         }
         function showCongratulationsModal(rankIndex, studentName) {
@@ -318,24 +361,24 @@
             generalRankingList.innerHTML = '';
             dailyRankingList.innerHTML = '';
             const topIcons = [
-                "https://cdn-icons-png.flaticon.com/512/2583/2583434.png", // Corona
-                "https://cdn-icons-png.flaticon.com/512/2583/2583319.png", // Silver
-                "https://cdn-icons-png.flaticon.com/512/2583/2583264.png", // Bronze
+                "https://cdn-icons-png.flaticon.com/512/2583/2583434.png",
+                "https://cdn-icons-png.flaticon.com/512/2583/2583319.png",
+                "https://cdn-icons-png.flaticon.com/512/2583/2583264.png",
             ];
             const starIcon = "https://cdn-icons-png.flaticon.com/512/1828/1828884.png";
             rankings.slice(0, 6).forEach(([name, score], index) => {
                 const iconSrc = index < 3 ? topIcons[index] : starIcon;
-                const rankingCard = document.createElement('div');
+                const rankingCard = document.createElement('article');
                 rankingCard.className = 'ranking-card';
-                if (index < 3) { rankingCard.classList.add(`rank-${index + 1}`); }
+                if (index < 3) rankingCard.classList.add(`rank-${index + 1}`);
                 rankingCard.innerHTML = `<span class="ranking-position">${index + 1}.</span><img src="${iconSrc}" class="ranking-icon" alt="Insignia de Rango"><span class="ranking-name">${name}</span><span class="ranking-score">${score}</span>`;
                 generalRankingList.appendChild(rankingCard);
             });
             rankings.sort(() => 0.5 - Math.random()).slice(0, 6).forEach(([name, score], index) => {
                 const iconSrc = index < 3 ? topIcons[index] : starIcon;
-                const rankingCard = document.createElement('div');
+                const rankingCard = document.createElement('article');
                 rankingCard.className = 'ranking-card';
-                if (index < 3) { rankingCard.classList.add(`rank-${index + 1}`); }
+                if (index < 3) rankingCard.classList.add(`rank-${index + 1}`);
                 rankingCard.innerHTML = `<span class="ranking-position">${index + 1}.</span><img src="${iconSrc}" class="ranking-icon" alt="Insignia de Rango"><span class="ranking-name">${name}</span><span class="ranking-score">${Math.floor(Math.random() * 50) + 20}</span>`;
                 dailyRankingList.appendChild(rankingCard);
             });
@@ -360,24 +403,28 @@
             return { avgScore: avgScore.toFixed(0), topStudent: topStudentName, mostPositive: mostPositiveBehavior, mostNegative: mostNegativeBehavior };
         }
         function displayCourseStats(stats) {
-            avgScoreContainer.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/3138/3138806.png" class="stat-icon" alt="Promedio"><h4>Promedio Puntaje</h4><p>${stats.avgScore}</p>`;
-            topStudentContainer.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/3112/3112946.png" class="stat-icon" alt="Mejor Estudiante"><h4>Mejor Puntaje</h4><p>${stats.topStudent}</p>`;
-            mostPositiveContainer.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/1683/1683159.png" class="stat-icon" alt="Conducta Positiva"><h4>Conducta + Frecuente</h4><p>${stats.mostPositive}</p>`;
-            mostNegativeContainer.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/1683/1683182.png" class="stat-icon" alt="Conducta a Mejorar"><h4>Área + Frecuente</h4><p>${stats.mostNegative}</p>`;
+            avgScoreContainer.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/3138/3138806.png" class="stat-icon" alt="Icono de una calculadora"><h4>Promedio Puntaje</h4><p>${stats.avgScore}</p>`;
+            topStudentContainer.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/3112/3112946.png" class="stat-icon" alt="Icono de un trofeo"><h4>Mejor Puntaje</h4><p>${stats.topStudent}</p>`;
+            mostPositiveContainer.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/1683/1683159.png" class="stat-icon" alt="Icono de pulgar arriba"><h4>Hábito Positivo Destacado</h4><p>${stats.mostPositive}</p>`;
+            mostNegativeContainer.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/1683/1683182.png" class="stat-icon" alt="Icono de una lupa sobre un objetivo"><h4>Área de Enfoque Principal</h4><p>${stats.mostNegative}</p>`;
         }
         function updateRankingsAndStats() { displayRankings(); const stats = calculateCourseStats(); displayCourseStats(stats); }
-        studentListContainer.addEventListener('click', (event) => {
-            if (event.target.classList.contains('student-item')) {
-                selectedStudent = event.target.textContent;
+        function handleStudentSelection(event) {
+            const target = event.target.closest('.student-item');
+            if (target) {
+                selectedStudent = target.textContent;
                 modalTitle.innerHTML = `¡Hola, ${selectedStudent}! <br> Ingresa tu PIN Secreto`;
                 errorMessage.textContent = '';
                 passwordInput.value = '';
                 passwordModal.classList.add('visible');
                 passwordInput.focus();
             }
-        });
+        }
+        studentListContainer.addEventListener('click', handleStudentSelection);
+        studentListContainer.addEventListener('keydown', (e) => { if(e.key === 'Enter') handleStudentSelection(e); });
+        
         verifyPasswordBtn.addEventListener('click', async () => {
-            if (passwordInput.value === '1234') {
+            if (passwordInput.value === '1234') { 
                 const data = await fetchDummyData(selectedStudent);
                 passwordModal.classList.remove('visible');
                 displayAllData(data);
@@ -389,6 +436,7 @@
             } else { errorMessage.textContent = 'PIN incorrecto. ¡Intenta de nuevo!'; }
         });
         passwordModal.addEventListener('click', (e) => { if (e.target === passwordModal) passwordModal.classList.remove('visible'); });
+        
         function showInfoModal(type) {
             const info = infoTexts[type];
             infoModalTitle.textContent = info.title;
@@ -402,8 +450,10 @@
                 showInfoModal(infoType);
             });
         });
+        
         infoModalCloseBtn.addEventListener('click', () => infoModal.classList.remove('visible', 'congrats-modal'));
         infoModal.addEventListener('click', (e) => { if (e.target === infoModal) infoModal.classList.remove('visible', 'congrats-modal'); });
+        
         window.onload = async () => {
             for (const name of studentNames) { await fetchDummyData(name); }
             updateRankingsAndStats();
