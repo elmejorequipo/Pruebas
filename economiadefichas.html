@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visor de Conductas - Tercero A</title>
+    <style>
+        /* --- Importar Fuente Kawaii (Nunito) --- */
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
+
+        /* --- Estilos Generales y Paleta de Colores Kawaii --- */
+        :root {
+            --color-primario: #ff8fab; /* Rosado principal */
+            --color-secundario: #84d2f6; /* Azul cielo */
+            --color-adaptativo: #79d2a6; /* Verde menta */
+            --color-inadaptativo: #ffb38a; /* Durazno */
+            --color-fondo: #fdf6f8; /* Fondo rosado muy pálido */
+            --color-texto: #574b60; /* Morado oscuro/gris */
+            --color-blanco: #fff;
+            --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --borde-redondeado: 20px;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--color-fondo);
+            color: var(--color-texto);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        /* --- Contenedores Principales --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--color-blanco);
+            border-radius: var(--borde-redondeado);
+            box-shadow: var(--sombra-suave);
+        }
+
+        header {
+            text-align: center;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            color: var(--color-primario);
+            font-weight: 900;
+            font-size: 2.8rem;
+            margin: 0;
+            position: relative;
+        }
+
+        /* Pequeña estrella decorativa */
+        header h1::after {
+            content: '✨';
+            font-size: 1.5rem;
+            position: absolute;
+            top: 0;
+            right: 25%;
+            transform: rotate(15deg);
+        }
+        
+        .header-subtitle {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 5px 0;
+            color: var(--color-secundario);
+        }
+
+        /* --- Lista de Estudiantes --- */
+        #studentListContainer {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .student-item {
+            padding: 12px;
+            background-color: #f0e8f3; /* Lavanda pálido */
+            border-radius: 15px;
+            text-align: center;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border-bottom: 4px solid #d9c8e0;
+        }
+
+        .student-item:hover {
+            background-color: var(--color-primario);
+            color: var(--color-blanco);
+            transform: translateY(-4px);
+            border-bottom-color: #e06b8b;
+            box-shadow: var(--sombra-suave);
+        }
+
+        /* --- Modal de Contraseña --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(90, 75, 100, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: var(--color-blanco);
+            padding: 40px;
+            border-radius: var(--borde-redondeado);
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 400px;
+        }
+        
+        .modal-content h3 { margin-top: 0; font-size: 1.5rem; color: var(--color-primario); }
+        .modal-content input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Nunito', sans-serif;
+        }
+        .modal-content input:focus { outline: none; border-color: var(--color-primario); }
+        .modal-content button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background-color: var(--color-primario);
+            color: var(--color-blanco);
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 4px solid #e06b8b;
+        }
+        .modal-content button:hover { transform: translateY(-2px); }
+        .modal-content button:active { transform: translateY(0); }
+
+        /* --- Resultados y Gamificación --- */
+        #resultsContainer { display: none; }
+
+        #summarySection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            background-color: #f0e8f322;
+            border-radius: var(--borde-redondeado);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .summary-item h4 { margin: 0 0 10px 0; color: #aaa; text-transform: uppercase; font-size: 0.9rem; font-weight: 700; }
+        .summary-item p { margin: 0; font-size: 2.2rem; font-weight: 900; }
+        #scoreDisplay { color: var(--color-primario); }
+        #rankDisplay { color: var(--color-secundario); font-size: 1.8rem; }
+
+        .progress-bar-container {
+            width: 100%;
+            background-color: #e9ecef;
+            border-radius: 50px;
+            height: 25px;
+            overflow: hidden;
+            margin-top: 5px;
+            border: 3px solid white;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-adaptativo), #a2e2c2);
+            border-radius: 50px;
+            transition: width 0.8s ease-in-out;
+        }
+
+        #behaviorsGrid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .behavior-column h3 {
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 4px dotted;
+            font-size: 1.5rem;
+            font-weight: 900;
+        }
+
+        #adaptiveContainer h3 { border-color: var(--color-adaptativo); color: var(--color-adaptativo); }
+        #maladaptiveContainer h3 { border-color: var(--color-inadaptativo); color: var(--color-inadaptativo); }
+
+        .behavior-card {
+            display: flex;
+            align-items: center;
+            background: var(--color-blanco);
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: var(--sombra-suave);
+            margin-bottom: 15px;
+            transition: transform 0.2s;
+        }
+        .behavior-card:hover { transform: translateY(-5px); }
+        
+        .behavior-icon {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        .behavior-name {
+            flex-grow: 1;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .behavior-count {
+            font-size: 1.8rem;
+            font-weight: 900;
+            padding: 5px 15px;
+            border-radius: 50px;
+            min-width: 50px;
+            text-align: center;
+        }
+        .adaptive-card .behavior-count { color: var(--color-adaptativo); background-color: #eaf6ec; }
+        .maladaptive-card .behavior-count { color: var(--color-inadaptativo); background-color: #fff4e7; }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Visor de Conductas</h1>
+            <p class="header-subtitle">Col. Don Bosco Central Particular</p>
+            <p class="header-subtitle">Curso: Tercero "A" de Secundaria</p>
+        </header>
+
+        <main>
+            <div id="studentListContainer">
+                </div>
+
+            <div id="resultsContainer">
+                <section id="summarySection">
+                    <div class="summary-item">
+                        <h4>Puntaje Total</h4>
+                        <p id="scoreDisplay">0</p>
+                    </div>
+                    <div class="summary-item">
+                        <h4>Rango Actual</h4>
+                        <p id="rankDisplay">...</p>
+                    </div>
+                    <div class="summary-item">
+                        <h4>Progreso</h4>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="progressBar"></div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="behaviorsGrid">
+                    <div id="adaptiveContainer" class="behavior-column">
+                        <h3>Conductas Positivas ✨</h3>
+                        <div id="adaptive-list"></div>
+                    </div>
+                    <div id="maladaptiveContainer" class="behavior-column">
+                        <h3>Áreas a Mejorar 🎯</h3>
+                        <div id="maladaptive-list"></div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <div id="passwordModal" class="modal-overlay" style="display:none;">
+        <div class="modal-content">
+            <h3 id="modalTitle">¡Hola! Ingresa tu PIN Secreto</h3>
+            <p id="errorMessage" style="color:red;"></p>
+            <input type="password" id="passwordInput" placeholder="PIN Secreto">
+            <button id="verifyPasswordBtn">Entrar</button>
+        </div>
+    </div>
+
+    <script>
+        const studentListContainer = document.getElementById('studentListContainer');
+        const passwordModal = document.getElementById('passwordModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const passwordInput = document.getElementById('passwordInput');
+        const verifyPasswordBtn = document.getElementById('verifyPasswordBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const resultsContainer = document.getElementById('resultsContainer');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const rankDisplay = document.getElementById('rankDisplay');
+        const progressBar = document.getElementById('progressBar');
+        const adaptiveList = document.getElementById('adaptive-list');
+        const maladaptiveList = document.getElementById('maladaptive-list');
+
+        let selectedStudent = "";
+        
+        const studentNames = [
+            "Ana", "Bruno", "Carla", "David", "Elena", "Fernando", "Gabriela", "Hugo", "Isabel", "Javier",
+            "Laura", "Mateo", "Nora", "Óscar", "Paula", "Quintín", "Raquel", "Sergio", "Teresa", "Ulises",
+            "Valeria", "Walter", "Ximena", "Yago", "Zoe", "Andrés", "Beatriz", "Carlos", "Diana", "Esteban",
+            "Fátima", "Gerardo", "Helena", "Iván", "Jimena", "Kevin", "Lucía", "Marcos", "Natalia", "Pablo"
+        ];
+        
+        studentNames.forEach(name => {
+            const studentElement = document.createElement('div');
+            studentElement.className = 'student-item';
+            studentElement.textContent = name;
+            studentListContainer.appendChild(studentElement);
+        });
+
+        function fetchDummyData(studentName) {
+            const dictionary = {
+                adaptive: [
+                    { name: "Participación Voluntaria", icon: "https://cdn-icons-png.flaticon.com/512/2995/2995459.png" },
+                    { name: "Ayuda a Pares", icon: "https://cdn-icons-png.flaticon.com/512/8157/8157973.png" },
+                    { name: "Entrega a Tiempo", icon: "https://cdn-icons-png.flaticon.com/512/2666/2666235.png" },
+                    { name: "Puntualidad y Preparación", icon: "https://cdn-icons-png.flaticon.com/512/2857/2857413.png" },
+                    { name: "Esfuerzo y Perseverancia", icon: "https://cdn-icons-png.flaticon.com/512/4346/4346769.png" },
+                    { name: "Colaboración en Equipo", icon: "https://cdn-icons-png.flaticon.com/512/3301/3301548.png" },
+                    { name: "Escucha Activa", icon: "https://cdn-icons-png.flaticon.com/512/4800/4800885.png" },
+                    { name: "Iniciativa Positiva", icon: "https://cdn-icons-png.flaticon.com/512/3653/3653194.png" },
+                    { name: "Cuidado del Entorno", icon: "https://cdn-icons-png.flaticon.com/512/10014/10014361.png" },
+                    { name: "Seguimiento de Indicaciones", icon: "https://cdn-icons-png.flaticon.com/512/3063/3063831.png" },
+                ],
+                maladaptive: [
+                    { name: "Interrupción de la Clase", icon: "https://cdn-icons-png.flaticon.com/512/2899/2899853.png" },
+                    { name: "Falta de Material", icon: "https://cdn-icons-png.flaticon.com/512/8659/8659556.png" },
+                    { name: "Interacción Negativa con Pares", icon: "https://cdn-icons-png.flaticon.com/512/5725/5725966.png" },
+                    { name: "Fuera de Tarea", icon: "https://cdn-icons-png.flaticon.com/512/4799/4799144.png" },
+                    { name: "Entrega Tardía", icon: "https://cdn-icons-png.flaticon.com/512/10691/10691866.png" },
+                    { name: "Incumplimiento de Indicaciones", icon: "https://cdn-icons-png.flaticon.com/512/2338/2338416.png" },
+                    { name: "Levantarse sin Permiso", icon: "https://cdn-icons-png.flaticon.com/512/2097/2097513.png" },
+                    { name: "Uso Inadecuado de Material", icon: "https://cdn-icons-png.flaticon.com/512/7517/7517564.png" },
+                    { name: "Actitud Desafiante", icon: "https://cdn-icons-png.flaticon.com/512/7474/7474776.png" },
+                    { name: "Llegada Tarde", icon: "https://cdn-icons-png.flaticon.com/512/3238/3238125.png" },
+                ]
+            };
+            const data = {
+                adaptive: dictionary.adaptive.map(b => ({ ...b, count: Math.floor(Math.random() * 20) })),
+                maladaptive: dictionary.maladaptive.map(b => ({ ...b, count: Math.floor(Math.random() * 6) })),
+            };
+            return Promise.resolve(data);
+        }
+
+        function calculateTotalScore(data) {
+            const positiveScore = data.adaptive.reduce((sum, b) => sum + b.count, 0) * 20;
+            const negativeScore = data.maladaptive.reduce((sum, b) => sum + b.count, 0) * 10;
+            return positiveScore - negativeScore;
+        }
+
+        function determineRank(score) {
+            if (score < 200) return "Pequeña Semilla 🌱";
+            if (score < 800) return "Flor Creciente 🌸";
+            if (score < 1500) return "Árbol Amistoso 🌳";
+            return "Sol Radiante ☀️";
+        }
+
+        function calculateProgress(score) {
+            const maxScoreGoal = 1500; // El puntaje para alcanzar el rango más alto
+            const progress = (score / maxScoreGoal) * 100;
+            return Math.min(progress, 100);
+        }
+
+        function displayAllData(data) {
+            const score = calculateTotalScore(data);
+            const rank = determineRank(score);
+            const progress = calculateProgress(score);
+
+            scoreDisplay.textContent = score;
+            rankDisplay.textContent = rank;
+            // Pequeña animación para la barra de progreso
+            setTimeout(() => { progressBar.style.width = `${progress}%`; }, 100);
+
+            adaptiveList.innerHTML = '';
+            maladaptiveList.innerHTML = '';
+
+            data.adaptive.forEach(b => {
+                const card = createBehaviorCard(b, 'adaptive');
+                adaptiveList.appendChild(card);
+            });
+            data.maladaptive.forEach(b => {
+                const card = createBehaviorCard(b, 'maladaptive');
+                maladaptiveList.appendChild(card);
+            });
+            resultsContainer.style.display = 'block';
+        }
+
+        function createBehaviorCard(behavior, type) {
+            const card = document.createElement('div');
+            card.className = `behavior-card ${type}-card`;
+            card.innerHTML = `
+                <img src="${behavior.icon}" alt="${behavior.name}" class="behavior-icon">
+                <span class="behavior-name">${behavior.name}</span>
+                <span class="behavior-count">${behavior.count}</span>
+            `;
+            return card;
+        }
+
+        studentListContainer.addEventListener('click', (event) => {
+            if (event.target.classList.contains('student-item')) {
+                selectedStudent = event.target.textContent;
+                modalTitle.innerHTML = `¡Hola, ${selectedStudent}! <br> Ingresa tu PIN Secreto`;
+                errorMessage.textContent = '';
+                passwordInput.value = '';
+                passwordModal.style.display = 'flex';
+                passwordInput.focus();
+            }
+        });
+
+        verifyPasswordBtn.addEventListener('click', async () => {
+            const password = passwordInput.value;
+            if (password === '1234') { 
+                const data = await fetchDummyData(selectedStudent);
+                passwordModal.style.display = 'none';
+                displayAllData(data);
+            } else {
+                errorMessage.textContent = 'PIN incorrecto. ¡Intenta de nuevo!';
+            }
+        });
+        
+        passwordModal.addEventListener('click', (event) => {
+            if (event.target === passwordModal) {
+                passwordModal.style.display = 'none';
+            }
+        });
+
+    </script>
+</body>
+</html>
