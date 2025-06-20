@@ -6,20 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visor de Conductas | Don Bosco | Tercero A</title>
     
-    <!-- Meta-etiquetas para que los buscadores y redes sociales entiendan la página -->
+    <!-- ============== SEO Y METADATOS SOCIALES ============== -->
     <meta name="description" content="Aplicación de seguimiento de conductas y economía de fichas para los estudiantes del Tercero A de Secundaria del Col. Don Bosco Central Particular.">
     <meta name="keywords" content="educación, gamificación, economía de fichas, seguimiento de conducta, Don Bosco, Santa Cruz, Bolivia">
     <meta name="author" content="Luis Alfredo Andia Valverde">
-    <link rel="canonical" href="https://ejorequipo.github.io/"> <!-- URL Canónica: La dirección oficial de esta página -->
+    <link rel="canonical" href="https://ejorequipo.github.io/"> <!-- Reemplaza con tu URL final -->
 
-    <!-- Open Graph (para compartir en Facebook, WhatsApp, etc.) -->
+    <!-- Open Graph (para Facebook, WhatsApp, etc.) -->
     <meta property="og:title" content="Visor de Conductas | Don Bosco | Tercero A">
     <meta property="og:description" content="Una forma divertida y motivadora de seguir el progreso en el aula.">
     <meta property="og:image" content="https://i.imgur.com/your-image.png"> <!-- URL a una imagen representativa para compartir -->
     <meta property="og:url" content="https://ejorequipo.github.io/">
     <meta property="og:type" content="website">
 
-    <!-- Twitter Card (para compartir en Twitter) -->
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Visor de Conductas | Don Bosco | Tercero A">
     <meta name="twitter:description" content="Una forma divertida y motivadora de seguir el progreso en el aula.">
@@ -37,92 +37,119 @@
             --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.08); --borde-redondeado: 20px;
         }
 
-        /* --- Estilos Generales y de Cuerpo --- */
-        html { font-size: 16px; scroll-behavior: smooth; /* Desplazamiento suave */ }
-        body { font-family: 'Nunito', sans-serif; background-color: var(--color-fondo); color: var(--color-texto); margin: 0; padding: 1rem; line-height: 1.6; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 1rem; background-color: var(--color-blanco); border-radius: var(--borde-redondeado); box-shadow: var(--sombra-suave); }
+        /* --- Variables para el Modo Oscuro --- */
+        body.dark-mode {
+            --color-primario: #ff9ac1; --color-secundario: #9ed8f8; --color-adaptativo: #82d8b0; --color-inadaptativo: #ffc2a1;
+            --color-fondo: #403644; --color-texto: #e5e0e8; --color-blanco: #4d4051;
+            --sombra-suave: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
 
-        /* --- Logo Creativo con Animación CSS --- */
-        .logo { display: flex; align-items: flex-end; justify-content: center; height: 50px; gap: 4px; margin-bottom: 1rem; }
-        .logo-bar { width: 12px; background-color: var(--color-secundario); border-radius: 5px; transition: height 0.5s ease; }
-        .logo-bar:nth-child(1) { height: 20px; background-color: var(--color-adaptativo); animation: bounce 2s infinite ease-in-out; }
-        .logo-bar:nth-child(2) { height: 35px; animation: bounce 2s 0.2s infinite ease-in-out; }
-        .logo-bar:nth-child(3) { height: 50px; background-color: var(--color-primario); animation: bounce 2s 0.4s infinite ease-in-out; }
+        /* --- Estilos Generales y de Cuerpo --- */
+        html { font-size: 16px; scroll-behavior: smooth; }
+        body { font-family: 'Nunito', sans-serif; background-color: var(--color-fondo); color: var(--color-texto); margin: 0; padding: 1rem; line-height: 1.6; transition: background-color 0.3s, color 0.3s;}
+        .container { max-width: 1200px; margin: 0 auto; padding: 1rem; background-color: var(--color-blanco); border-radius: var(--borde-redondeado); box-shadow: var(--sombra-suave); transition: background-color 0.3s; }
+
+        /* --- Logo Creativo con Animación CSS (Más grande) --- */
+        .logo { display: flex; align-items: flex-end; justify-content: center; height: 60px; gap: 5px; margin-bottom: 1rem; }
+        .logo-bar { width: 15px; background-color: var(--color-secundario); border-radius: 6px; transition: height 0.5s ease; }
+        .logo-bar:nth-child(1) { height: 30px; background-color: var(--color-adaptativo); animation: bounce 2s infinite ease-in-out; }
+        .logo-bar:nth-child(2) { height: 45px; animation: bounce 2s 0.2s infinite ease-in-out; }
+        .logo-bar:nth-child(3) { height: 60px; background-color: var(--color-primario); animation: bounce 2s 0.4s infinite ease-in-out; }
         @keyframes bounce { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.8); } }
 
         /* --- Encabezado y Títulos --- */
-        header { text-align: center; padding-bottom: 1rem; margin-bottom: 2rem; }
-        /* clamp() para un tamaño de fuente responsivo */
+        header { text-align: center; padding-bottom: 1rem; margin-bottom: 2rem; position: relative; }
         header h1 { color: var(--color-primario); font-weight: 900; font-size: clamp(2rem, 6vw, 2.8rem); margin: 0; display: inline-flex; align-items: center; justify-content: center; }
-        .header-subtitle { font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 700; margin: 5px 0; color: var(--color-secundario); }
+        .header-subtitle { font-size: clamp(1.1rem, 4vw, 1.3rem); font-weight: 700; margin: 10px 0 5px 0; color: var(--color-secundario); display: flex; align-items: center; justify-content: center; gap: 8px;}
         .section-title { text-align: center; color: var(--color-primario); font-weight: 900; font-size: clamp(1.5rem, 5vw, 2rem); margin: 2.5rem 0 1.5rem 0; }
-        .info-icon { display: inline-block; width: 20px; height: 20px; border-radius: 50%; background-color: #ddd; color: var(--color-blanco); text-align: center; line-height: 20px; font-size: 0.8rem; font-weight: 700; cursor: pointer; margin-left: 8px; transition: all 0.2s; }
+        .info-icon { display: inline-block; width: 20px; height: 20px; border-radius: 50%; background-color: #ddd; color: #fff; text-align: center; line-height: 20px; font-size: 0.8rem; font-weight: 700; cursor: pointer; margin-left: 8px; transition: all 0.2s; }
+        .dark-mode .info-icon { background-color: #6a5e70; }
         .info-icon:hover { background-color: var(--color-secundario); transform: scale(1.1); }
         
+        /* --- Interruptor de Modo Oscuro --- */
+        .theme-switch-wrapper { position: absolute; top: 0; right: 0; }
+        .theme-switch { display: inline-block; height: 34px; position: relative; width: 60px; }
+        .theme-switch input { display:none; }
+        .slider { background-color: #ccc; bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0; transition: .4s; border-radius: 34px; }
+        .slider:before { background-color: #fff; bottom: 4px; content: ""; height: 26px; left: 4px; position: absolute; transition: .4s; width: 26px; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--color-primario); }
+        input:checked + .slider:before { transform: translateX(26px); }
+        .slider .icon { position: absolute; top: 50%; transform: translateY(-50%); font-size: 1rem; }
+        .slider .sun { left: 8px; opacity: 1; transition: opacity 0.2s; }
+        .slider .moon { right: 8px; opacity: 0; transition: opacity 0.2s; }
+        input:checked + .slider .sun { opacity: 0; }
+        input:checked + .slider .moon { opacity: 1; }
+
         /* --- Contenedores Principales y Rejillas Responsivas --- */
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
         #rankingsGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
         #behaviorsGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
 
         /* --- Estilos de Tarjetas Genéricas (Estadísticas, Rankings, etc.) --- */
-        .stat-item, .ranking-card, .behavior-card { background: var(--color-blanco); border-radius: 15px; box-shadow: var(--sombra-suave); padding: 1rem; transition: transform 0.2s; }
+        .stat-item, .ranking-card, .behavior-card { background: var(--color-blanco); border-radius: 15px; box-shadow: var(--sombra-suave); padding: 1rem; transition: transform 0.2s, background-color 0.3s; }
         .stat-item:hover, .ranking-card:hover, .behavior-card:hover { transform: translateY(-5px); }
         .stat-item { text-align: center; }
-        .stat-item h4 { color: #aaa; text-transform: uppercase; font-size: 0.8rem; font-weight: 700; margin: 10px 0; }
+        .stat-item h4, .summary-item h4 { color: #aaa; text-transform: uppercase; font-size: 0.8rem; font-weight: 700; margin: 10px 0; transition: color 0.3s; }
+        .dark-mode .stat-item h4, .dark-mode .summary-item h4 { color: #9a90a0; }
         .stat-item p { font-size: 1.5rem; font-weight: 900; color: var(--color-texto); margin: 0; word-wrap: break-word; }
         .stat-icon { width: 40px; height: 40px; margin-bottom: 10px; }
 
         /* --- Estilos de Ranking Mejorados --- */
-        #rankingsSection h3 { color: var(--color-secundario); font-weight: 700; padding-bottom: 10px; border-bottom: 3px dotted var(--color-secundario); text-align: center; margin-top: 0;}
+        #rankingsSection h3 { color: var(--color-secundario); font-weight: 700; padding-bottom: 10px; border-bottom: 3px dotted; text-align: center; margin-top: 0; border-color: var(--color-secundario); }
         .ranking-card { display: flex; align-items: center; background-color: #f0e8f355; border: 2px solid transparent; }
         .ranking-card.rank-1 { background: linear-gradient(135deg, #fff7d1, #ffeeb1); border-color: var(--color-oro); transform: scale(1.05); }
-        .ranking-card.rank-2 { background: linear-gradient(135deg, #f5f7fa, #e9ecef); border-color: var(--color-plata); } /* Jerarquía visual corregida */
+        .ranking-card.rank-2 { background: linear-gradient(135deg, #f5f7fa, #e9ecef); border-color: var(--color-plata); }
         .ranking-card.rank-3 { background-color: #fbeee2; border-color: var(--color-bronce); }
-        .ranking-position { font-size: 1.2rem; font-weight: 900; color: var(--color-primario); width: 30px; }
-        .ranking-icon { width: 35px; height: 35px; margin: 0 10px; }
-        .ranking-name { flex-grow: 1; font-weight: 700; }
+        .dark-mode .ranking-card.rank-1 { background: linear-gradient(135deg, #6e5e00, #5a4b00); border-color: var(--color-oro); }
+        .dark-mode .ranking-card.rank-2 { background: linear-gradient(135deg, #717171, #5a5a5a); border-color: var(--color-plata); }
+        .dark-mode .ranking-card.rank-3 { background: linear-gradient(135deg, #7d4f1e, #633f17); border-color: var(--color-bronce); }
+        .ranking-position { font-size: 1.2rem; font-weight: 900; color: var(--color-primario); width: 25px; }
+        .ranking-avatar { flex-shrink: 0; width: 35px; height: 35px; border-radius: 50%; color: var(--color-texto); display: flex; align-items: center; justify-content: center; font-weight: 700; margin-left: 5px; }
+        .ranking-icon { width: 35px; height: 35px; margin: 0 5px; }
+        .ranking-name { flex-grow: 1; font-weight: 700; margin-left: 5px; }
         .rank-1 .ranking-name, .rank-2 .ranking-name, .rank-3 .ranking-name { font-size: 1.1rem; font-weight: 900; }
         .rank-1 .ranking-name { color: #b38600; }
-        .rank-2 .ranking-name { color: #5a6268; } /* Color más oscuro para mejor contraste */
+        .dark-mode .rank-1 .ranking-name { color: #ffeb85; }
+        .rank-2 .ranking-name { color: #5a6268; }
+        .dark-mode .rank-2 .ranking-name { color: #e9ecef; }
         .rank-3 .ranking-name { color: #8c5a2d; }
+        .dark-mode .rank-3 .ranking-name { color: #fbeee2; }
         .ranking-score { font-weight: 900; color: #fff; background-color: var(--color-primario); padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.9rem; }
         
-        /* --- Lista de Estudiantes --- */
+        /* --- Lista de Estudiantes con AVATARES --- */
         #studentListContainer { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-top: 20px; }
-        .student-item { padding: 12px; background-color: #f0e8f3; border-radius: 15px; text-align: center; font-weight: 700; cursor: pointer; transition: all 0.2s ease-in-out; border-bottom: 4px solid #d9c8e0; }
-        .student-item:hover { background-color: var(--color-primario); color: var(--color-blanco); transform: translateY(-4px); border-bottom-color: #e06b8b; box-shadow: var(--sombra-suave); }
+        .student-item { padding: 12px; background-color: #f0e8f3; border-radius: 15px; text-align: center; font-weight: 700; cursor: pointer; transition: all 0.2s ease-in-out; border-bottom: 4px solid #d9c8e0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .student-avatar { width: 50px; height: 50px; border-radius: 50%; color: var(--color-texto); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.2rem; margin-bottom: 8px; }
+        .dark-mode .student-item { background-color: #5a4e60; border-bottom-color: #4a4050; }
+        .student-item:hover { background-color: var(--color-primario); color: #fff; transform: translateY(-4px); border-bottom-color: #e06b8b; box-shadow: var(--sombra-suave); }
+        .student-item:hover .student-avatar { color: #fff; }
 
         /* --- Vista Individual --- */
         #resultsContainer { display: none; }
         #summarySection { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; padding: 1.5rem; background-color: #f0e8f322; border-radius: var(--borde-redondeado); margin-bottom: 2rem; text-align: center; }
+        .summary-item h4 { display: flex; justify-content: center; align-items: center; }
         .summary-item p { margin: 0; font-size: 2.2rem; font-weight: 900; }
         #scoreDisplay { color: var(--color-primario); }
         #rankDisplay { color: var(--color-secundario); font-size: 1.8rem; }
-        .progress-bar-container { width: 100%; background-color: #e9ecef; border-radius: 50px; height: 25px; overflow: hidden; margin-top: 5px; border: 3px solid white; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
+        .progress-bar-container { width: 100%; background-color: #e9ecef; border-radius: 50px; height: 25px; overflow: hidden; margin-top: 5px; border: 3px solid var(--color-blanco); box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
+        .dark-mode .progress-bar-container { background-color: #382f3c; border-color: #4d4051;}
         .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, var(--color-adaptativo), #a2e2c2); border-radius: 50px; transition: width 0.8s ease-in-out; }
         .behavior-column h3 { text-align: center; padding-bottom: 10px; border-bottom: 4px dotted; font-size: 1.5rem; font-weight: 900; }
         #adaptiveContainer h3 { border-color: var(--color-adaptativo); color: var(--color-adaptativo); }
         #maladaptiveContainer h3 { border-color: var(--color-inadaptativo); color: var(--color-inadaptativo); }
-        .behavior-card { display: grid; grid-template-columns: 50px 1fr auto; gap: 1rem; align-items: center; /* Alineación vertical perfecta */ }
+        .behavior-card { display: grid; grid-template-columns: 50px 1fr auto; gap: 1rem; align-items: center; }
         .behavior-icon { width: 50px; height: 50px; }
         .behavior-name { font-weight: 700; font-size: 1.1rem; }
         .behavior-count { font-size: 1.8rem; font-weight: 900; padding: 5px 15px; border-radius: 50px; min-width: 50px; text-align: center; }
         .adaptive-card .behavior-count { color: var(--color-adaptativo); background-color: #eaf6ec; }
         .maladaptive-card .behavior-count { color: var(--color-inadaptativo); background-color: #fff4e7; }
+        .dark-mode .adaptive-card .behavior-count { background-color: #385c49; }
+        .dark-mode .maladaptive-card .behavior-count { background-color: #6e4d3a; }
         
         /* --- Media Queries para Responsividad --- */
-        @media (max-width: 992px) {
-            #rankingsGrid { grid-template-columns: 1fr; } /* Apila rankings en tabletas */
-        }
-        @media (max-width: 768px) {
-            #behaviorsGrid { grid-template-columns: 1fr; } /* Apila conductas en móviles */
-            .grid-container { grid-template-columns: 1fr 1fr; }
-        }
-        @media (max-width: 480px) {
-            body { padding: 10px; }
-            .grid-container, #rankingsGrid { grid-template-columns: 1fr; } /* Todo a una columna en móviles pequeños */
-            .container { padding: 15px; }
-        }
+        @media (max-width: 992px) { #rankingsGrid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { #behaviorsGrid { grid-template-columns: 1fr; } .grid-container { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 480px) { body { padding: 10px; } .grid-container, #rankingsGrid { grid-template-columns: 1fr; } .container { padding: 15px; } }
 
         /* --- Modales y Pie de Página --- */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(90, 75, 100, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
@@ -130,8 +157,8 @@
         .modal-content { background: var(--color-blanco); padding: 40px; border-radius: var(--borde-redondeado); text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.3); width: 90%; max-width: 450px; transform: scale(0.9); transition: all 0.3s ease; position:relative; }
         .modal-overlay.visible .modal-content { transform: scale(1); }
         .modal-content h3 { margin-top: 0; font-size: 1.5rem; color: var(--color-primario); }
-        .modal-content p { margin: 15px 0; font-size: 1rem; text-align: left;}
-        .modal-content input { width: 100%; padding: 12px; margin: 15px 0; border: 2px solid #ddd; border-radius: 12px; font-size: 1rem; font-family: 'Nunito', sans-serif; }
+        .modal-content p { margin: 15px 0; font-size: 1rem; text-align: left; white-space: pre-wrap; }
+        .modal-content input { width: 100%; padding: 12px; margin: 15px 0; border: 2px solid #ddd; border-radius: 12px; font-size: 1rem; font-family: 'Nunito', sans-serif; background-color: var(--color-fondo); color: var(--color-texto); }
         .modal-content input:focus { outline: none; border-color: var(--color-primario); }
         .modal-content button { width: 100%; padding: 12px; border: none; border-radius: 12px; background-color: var(--color-primario); color: var(--color-blanco); font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all 0.2s; border-bottom: 4px solid #e06b8b; margin-top: 10px; }
         .modal-content button:hover { transform: translateY(-2px); }
@@ -145,30 +172,60 @@
         .confetti:nth-child(4n) { width: 15px; height: 7px; background-color: var(--color-oro); animation-duration: 4s; }
         @keyframes fall { from { top: -20px; transform: rotate(0deg); } to { top: 100%; transform: rotate(720deg); } }
         
-        footer {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #eee;
-            color: #aaa;
-            font-size: 0.9rem;
+        footer { text-align: center; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #eee; color: #aaa; font-size: 0.9rem; transition: border-color 0.3s;}
+        .dark-mode footer { border-top-color: #5a4e60; }
+        .footer-phrase { font-style: italic; color: var(--color-secundario); font-weight: 700; margin-bottom: 0.5rem; display: block;}
+        
+        /* Animación de Fade-In para Secciones */
+        .animated-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
+        .animated-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Mensaje de Solución */
+        #solutionMessage {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: var(--borde-redondeado);
+            background-color: #f0e8f333;
+            border: 2px dashed var(--color-secundario);
+            text-align: center;
+        }
+        .dark-mode #solutionMessage { background-color: #5a4e6055; border-color: var(--color-secundario); }
+        #solutionMessage .message-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        #solutionMessage h4 { font-weight: 900; color: var(--color-primario); margin: 0 0 1rem 0; }
+        #solutionMessage p { font-size: 1rem; line-height: 1.7; }
     </style>
 </head>
 <body>
     <main class="container">
         <header>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="theme-toggle">
+                    <input type="checkbox" id="theme-toggle" />
+                    <div class="slider">
+                        <span class="icon sun">☀️</span>
+                        <span class="icon moon">🌙</span>
+                    </div>
+                </label>
+            </div>
             <div class="logo">
                 <div class="logo-bar"></div>
                 <div class="logo-bar"></div>
                 <div class="logo-bar"></div>
             </div>
             <h1>Visor de Conductas <span class="info-icon" data-info="main" role="button" aria-label="Ver información sobre la aplicación">?</span></h1>
-            <p class="header-subtitle">Col. Don Bosco Central Particular</p>
+            <p class="header-subtitle">🏫 Col. Don Bosco Central Particular</p>
             <p class="header-subtitle">Curso: Tercero "A" de Secundaria</p>
         </header>
 
-        <section id="courseStats" aria-labelledby="stats-title">
+        <section id="courseStats" class="animated-section" aria-labelledby="stats-title">
             <h2 class="section-title" id="stats-title">Estadísticas Generales del Curso</h2>
             <div class="grid-container">
                 <article class="stat-item" id="avgScoreContainer"></article>
@@ -178,7 +235,7 @@
             </div>
         </section>
 
-        <section id="rankingsSection" aria-labelledby="rankings-title">
+        <section id="rankingsSection" class="animated-section" aria-labelledby="rankings-title">
             <h2 class="section-title" id="rankings-title">Tablas de Clasificación</h2>
             <div id="rankingsGrid">
                 <article id="generalRanking" aria-labelledby="general-ranking-title">
@@ -194,7 +251,7 @@
         
         <hr style="border: none; border-top: 2px dotted #ddd; margin: 40px 0;">
 
-        <section aria-labelledby="individual-progress-title">
+        <section class="animated-section" aria-labelledby="individual-progress-title">
             <h2 class="section-title" id="individual-progress-title">Progreso Individual</h2>
             <nav id="studentListContainer"></nav>
             <article id="resultsContainer">
@@ -214,6 +271,9 @@
                         </div>
                     </div>
                 </section>
+                
+                <article id="solutionMessage" class="animated-section"></article>
+                
                 <div id="behaviorsGrid">
                     <section id="adaptiveContainer" class="behavior-column" aria-labelledby="adaptive-title">
                         <h3 id="adaptive-title">Conductas Positivas ✨</h3>
@@ -229,7 +289,8 @@
     </main>
     
     <footer class="container" style="background: transparent; box-shadow: none;">
-        <p>Creado con ❤️ por Luis Alfredo Andia Valverde</p>
+        <p class="footer-phrase">"Anclados en la esperanza. Peregrinos con los Jóvenes"</p>
+        <p>Creado con ❤️ por Luis Alfredo Andia Valverde &copy; <span id="currentYear"></span></p>
     </footer>
 
     <div id="passwordModal" class="modal-overlay" role="dialog" aria-modal="true">
@@ -252,7 +313,6 @@
 
     <script>
         // --- SELECCIÓN DE ELEMENTOS DEL DOM ---
-        // Se guardan referencias a los elementos HTML para no tener que buscarlos cada vez.
         const studentListContainer = document.getElementById('studentListContainer');
         const passwordModal = document.getElementById('passwordModal');
         const modalTitle = document.getElementById('modalTitle');
@@ -275,213 +335,86 @@
         const infoModalTitle = document.getElementById('infoModalTitle');
         const infoModalText = document.getElementById('infoModalText');
         const infoModalCloseBtn = document.getElementById('infoModalCloseBtn');
+        const themeToggle = document.getElementById('theme-toggle');
+        const currentYearSpan = document.getElementById('currentYear');
+        const solutionMessageContainer = document.getElementById('solutionMessage');
         
-        // --- VARIABLES GLOBALES Y DATOS INICIALES ---
-        let selectedStudent = ""; // Guarda el nombre del estudiante seleccionado.
-        const allStudentData = {}; // Almacena los datos de todos los estudiantes para los cálculos globales.
+        let selectedStudent = "";
+        const allStudentData = {};
         
-        // Objeto que contiene los textos para los modales de información.
+        // --- TEXTOS PARA MODALES DE INFORMACIÓN ---
         const infoTexts = {
-            main: { title: "🎯 Objetivo de la Aplicación", text: "Esta aplicación es una herramienta de 'Economía de Fichas' diseñada para gamificar y reforzar positivamente el comportamiento en el aula. Su objetivo es hacer visible el progreso, motivar a los estudiantes a través de un sistema de puntos justo y claro, e identificar tanto las fortalezas grupales como las áreas que necesitan más apoyo. Sirve como un puente de comunicación transparente entre el profesor, los estudiantes y los padres." },
-            score: { title: "ℹ️ ¿Qué es el Puntaje Total?", text: "El Puntaje Total es el balance de la 'economía de fichas'. Se calcula con la fórmula: (Total Conductas Positivas x 20) - (Total Conductas a Mejorar x 10). ¡Un puntaje alto refleja un gran esfuerzo!" },
-            rank: { title: "👑 ¿Qué significa el Rango?", text: "El Rango es un reconocimiento por alcanzar ciertos niveles de puntaje, desde 'Pequeña Semilla 🌱' hasta 'Sol Radiante ☀️', celebrando cada paso del crecimiento." },
-            progress: { title: "📊 ¿Qué muestra el Progreso?", text: "Esta barra muestra visualmente qué tan cerca está el estudiante de alcanzar el siguiente Rango. ¡Cada pequeño esfuerzo cuenta para llenar la barra!" }
+            main: { title: "🎯 ¿Cuál es el Propósito de esta Página?", text: `¡Bienvenido/a a nuestro espacio de crecimiento!\n\nEsta página es más que un registro; es un juego donde celebramos el esfuerzo y el buen comportamiento. Funciona con un sistema de "Economía de Fichas", donde las acciones positivas suman puntos y nos ayudan a ver nuestro progreso.\n\nEl objetivo es motivarnos juntos, reconocer nuestras fortalezas y encontrar áreas donde podemos mejorar, todo de una forma divertida, transparente y colaborativa entre profesor, estudiantes y padres.` },
+            score: { title: "🏆 ¿Cómo funciona el Puntaje Total?", text: `El Puntaje es el corazón de nuestro juego. Cada acción tiene un valor:\n\n• <strong>Conducta Positiva:</strong> Suma <strong>+20 puntos</strong>. ¡Cada una es un gran paso adelante!\n• <strong>Área a Mejorar:</strong> Resta <strong>-10 puntos</strong>. No es un castigo, sino una oportunidad para aprender y recuperar puntos con acciones positivas.\n\nEl puntaje final nos muestra el balance de nuestro esfuerzo. ¡No se trata de ser perfecto, sino de esforzarse cada día!` },
+            rank: { title: "🌟 ¿Qué son los Rangos?", text: `Los Rangos son medallas que reconocen el esfuerzo y la constancia. A medida que acumulas puntos, ¡subes de nivel! Cada rango es una celebración de tu crecimiento:\n\n• <strong>Pequeña Semilla 🌱:</strong> ¡El inicio de una gran aventura!\n• <strong>Flor Creciente 🌸:</strong> ¡Tu esfuerzo está floreciendo!\n• <strong>Árbol Amistoso 🌳:</strong> ¡Eres un pilar positivo en el aula!\n• <strong>Sol Radiante ☀️:</strong> ¡Tu luz y ejemplo inspiran a todos!` },
+            progress: { title: "🚀 ¿Qué es la Barra de Progreso?", text: "Imagina que esta barra es un camino hacia tu siguiente gran logro. Cada punto que ganas la llena un poco más, mostrándote visualmente lo cerca que estás de alcanzar el próximo Rango. ¡Es la prueba de que cada pequeño paso positivo te acerca a tus metas!" }
         };
-
+        
         const studentNames = [ "Ana", "Bruno", "Carla", "David", "Elena", "Fernando", "Gabriela", "Hugo", "Isabel", "Javier", "Laura", "Mateo", "Nora", "Óscar", "Paula", "Quintín", "Raquel", "Sergio", "Teresa", "Ulises", "Valeria", "Walter", "Ximena", "Yago", "Zoe", "Andrés", "Beatriz", "Carlos", "Diana", "Esteban", "Fátima", "Gerardo", "Helena", "Iván", "Jimena", "Kevin", "Lucía", "Marcos", "Natalia", "Pablo" ];
         
         // --- LÓGICA DE LA APLICACIÓN ---
-
-        // Función para poblar la lista de estudiantes en la página.
-        studentNames.forEach(name => {
-            const studentElement = document.createElement('div');
-            studentElement.className = 'student-item';
-            studentElement.setAttribute('role', 'button');
-            studentElement.setAttribute('tabindex', '0');
-            studentElement.textContent = name;
-            studentListContainer.appendChild(studentElement);
-        });
-
-        // SIMULACIÓN DEL BACKEND: En una app real, esto sería una llamada a la API de Google Apps Script.
-        function fetchDummyData(studentName) {
-            if (allStudentData[studentName]) return Promise.resolve(allStudentData[studentName]); // Si ya tenemos los datos, los devolvemos.
-            const dictionary = {
-                adaptive: [ { name: "Participación Voluntaria", icon: "https://cdn-icons-png.flaticon.com/512/2995/2995459.png" }, { name: "Ayuda a Pares", icon: "https://cdn-icons-png.flaticon.com/512/8157/8157973.png" }, { name: "Entrega a Tiempo", icon: "https://cdn-icons-png.flaticon.com/512/2666/2666235.png" }, { name: "Puntualidad y Preparación", icon: "https://cdn-icons-png.flaticon.com/512/2857/2857413.png" }, { name: "Esfuerzo y Perseverancia", icon: "https://cdn-icons-png.flaticon.com/512/4346/4346769.png" }, { name: "Colaboración en Equipo", icon: "https://cdn-icons-png.flaticon.com/512/3301/3301548.png" }, { name: "Escucha Activa", icon: "https://cdn-icons-png.flaticon.com/512/4800/4800885.png" }, { name: "Iniciativa Positiva", icon: "https://cdn-icons-png.flaticon.com/512/3653/3653194.png" }, { name: "Cuidado del Entorno", icon: "https://cdn-icons-png.flaticon.com/512/10014/10014361.png" }, { name: "Seguimiento de Indicaciones", icon: "https://cdn-icons-png.flaticon.com/512/3063/3063831.png" }, ],
-                maladaptive: [ { name: "Interrupción de la Clase", icon: "https://cdn-icons-png.flaticon.com/512/2899/2899853.png" }, { name: "Falta de Material", icon: "https://cdn-icons-png.flaticon.com/512/8659/8659556.png" }, { name: "Interacción Negativa con Pares", icon: "https://cdn-icons-png.flaticon.com/512/5725/5725966.png" }, { name: "Fuera de Tarea", icon: "https://cdn-icons-png.flaticon.com/512/10410/10410147.png" }, { name: "Entrega Tardía", icon: "https://cdn-icons-png.flaticon.com/512/10691/10691866.png" }, { name: "Incumplimiento de Indicaciones", icon: "https://cdn-icons-png.flaticon.com/512/2338/2338416.png" }, { name: "Levantarse sin Permiso", icon: "https://cdn-icons-png.flaticon.com/512/2097/2097513.png" }, { name: "Uso Inadecuado de Material", icon: "https://cdn-icons-png.flaticon.com/512/7517/7517564.png" }, { name: "Actitud Desafiante", icon: "https://cdn-icons-png.flaticon.com/512/7474/7474776.png" }, { name: "Llegada Tarde", icon: "https://cdn-icons-png.flaticon.com/512/3238/3238125.png" }, ]
-            };
-            const data = {
-                adaptive: dictionary.adaptive.map(b => ({ ...b, count: Math.floor(Math.random() * 20) })),
-                maladaptive: dictionary.maladaptive.map(b => ({ ...b, count: Math.floor(Math.random() * 6) })),
-            };
-            allStudentData[studentName] = data; // Guarda los datos generados para cálculos globales.
-            return Promise.resolve(data);
-        }
-
-        // --- FUNCIONES DE CÁLCULO (El "motor" de la gamificación) ---
-        function calculateTotalScore(data) {
-            const positiveScore = data.adaptive.reduce((sum, b) => sum + b.count, 0) * 20;
-            const negativeScore = data.maladaptive.reduce((sum, b) => sum + b.count, 0) * 10;
-            return positiveScore - negativeScore;
-        }
-        function determineRank(score) {
-            if (score < 200) return "Pequeña Semilla 🌱";
-            if (score < 800) return "Flor Creciente 🌸";
-            if (score < 1500) return "Árbol Amistoso 🌳";
-            return "Sol Radiante ☀️";
-        }
-        function calculateProgress(score) {
-            const maxScoreGoal = 1500;
-            const progress = (score / maxScoreGoal) * 100;
-            return Math.min(progress, 100);
-        }
-        function calculateRankings() {
-            return Object.entries(allStudentData).map(([name, data]) => [name, calculateTotalScore(data)]).sort(([, scoreA], [, scoreB]) => scoreB - scoreA);
-        }
-        function calculateCourseStats() {
-            if (Object.keys(allStudentData).length === 0) return { avgScore: 0, topStudent: 'N/A', mostPositive: 'N/A', mostNegative: 'N/A' };
-            let totalScoreSum = 0, topScore = -Infinity, topStudentName = 'N/A';
-            const allPositiveCounts = {}, allNegativeCounts = {};
-            for (const name in allStudentData) {
-                const score = calculateTotalScore(allStudentData[name]);
-                totalScoreSum += score;
-                if (score > topScore) { topScore = score; topStudentName = name; }
-                allStudentData[name].adaptive.forEach(b => { allPositiveCounts[b.name] = (allPositiveCounts[b.name] || 0) + b.count; });
-                allStudentData[name].maladaptive.forEach(b => { allNegativeCounts[b.name] = (allNegativeCounts[b.name] || 0) + b.count; });
-            }
-            const avgScore = totalScoreSum / Object.keys(allStudentData).length;
-            const mostPositiveBehavior = Object.keys(allPositiveCounts).length ? Object.entries(allPositiveCounts).sort(([, a], [, b]) => b - a)[0][0] : 'N/A';
-            const mostNegativeBehavior = Object.keys(allNegativeCounts).length ? Object.entries(allNegativeCounts).sort(([, a], [, b]) => b - a)[0][0] : 'N/A';
-            return { avgScore: avgScore.toFixed(0), topStudent: topStudentName, mostPositive: mostPositiveBehavior, mostNegative: mostNegativeBehavior };
-        }
-
-        // --- FUNCIONES DE VISUALIZACIÓN (El "pincel" que dibuja la página) ---
-        function displayAllData(data) {
-            const score = calculateTotalScore(data);
-            const rank = determineRank(score);
-            const progress = calculateProgress(score);
-            scoreDisplay.textContent = score;
-            rankDisplay.textContent = rank;
-            setTimeout(() => { progressBar.style.width = `${progress}%`; }, 100);
-            adaptiveList.innerHTML = '';
-            maladaptiveList.innerHTML = '';
-            data.adaptive.forEach(b => adaptiveList.appendChild(createBehaviorCard(b, 'adaptive')));
-            data.maladaptive.forEach(b => maladaptiveList.appendChild(createBehaviorCard(b, 'maladaptive')));
-            resultsContainer.style.display = 'block';
-            updateRankingsAndStats();
-        }
-        function createBehaviorCard(behavior, type) {
-            const card = document.createElement('article');
-            card.className = `behavior-card ${type}-card`;
-            card.innerHTML = `<img src="${behavior.icon}" alt="Icono para ${behavior.name}" class="behavior-icon"><div class="behavior-name">${behavior.name}</div><div class="behavior-count">${behavior.count}</div>`;
-            return card;
-        }
-        function showCongratulationsModal(rankIndex, studentName) {
-            const confettiContainer = document.getElementById('confetti-container');
-            const messages = [
-                { title: `¡INCREÍBLE, ${studentName}! 👑`, text: `¡Eres el #1 en el ranking general! Tu esfuerzo y dedicación son una inspiración para todos. Sigue brillando así. ¡Estamos muy orgullosos de ti!` },
-                { title: `¡FENOMENAL, ${studentName}! 🥈`, text: `¡Alcanzaste el segundo lugar en el ranking! Tu progreso es fantástico y demuestra tu gran capacidad. ¡Sigue así y alcanzarás la cima!` },
-                { title: `¡GENIAL, ${studentName}! 🥉`, text: `¡Estás en el podio con el tercer lugar! Es un logro maravilloso que refleja tu trabajo duro. ¡No te detengas, vas por un camino excelente!` }
-            ];
-            const congratsMessage = messages[rankIndex];
-            infoModalTitle.textContent = congratsMessage.title;
-            infoModalText.textContent = congratsMessage.text;
-            infoModal.classList.add('visible', 'congrats-modal');
-            confettiContainer.innerHTML = '';
-            for (let i = 0; i < 50; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.animationDelay = Math.random() * 5 + 's';
-                confettiContainer.appendChild(confetti);
-            }
-        }
-        function displayRankings() {
-            const rankings = calculateRankings();
-            generalRankingList.innerHTML = '';
-            dailyRankingList.innerHTML = '';
-            const topIcons = [ "https://cdn-icons-png.flaticon.com/512/2583/2583434.png", "https://cdn-icons-png.flaticon.com/512/2583/2583319.png", "https://cdn-icons-png.flaticon.com/512/2583/2583264.png", ];
-            const starIcon = "https://cdn-icons-png.flaticon.com/512/1828/1828884.png";
-            rankings.slice(0, 6).forEach(([name, score], index) => {
-                const iconSrc = index < 3 ? topIcons[index] : starIcon;
-                const rankingCard = document.createElement('article');
-                rankingCard.className = 'ranking-card';
-                if (index < 3) rankingCard.classList.add(`rank-${index + 1}`);
-                rankingCard.innerHTML = `<span class="ranking-position">${index + 1}.</span><img src="${iconSrc}" class="ranking-icon" alt="Insignia de Rango"><span class="ranking-name">${name}</span><span class="ranking-score">${score}</span>`;
-                generalRankingList.appendChild(rankingCard);
-            });
-            rankings.sort(() => 0.5 - Math.random()).slice(0, 6).forEach(([name, score], index) => {
-                const iconSrc = index < 3 ? topIcons[index] : starIcon;
-                const rankingCard = document.createElement('article');
-                rankingCard.className = 'ranking-card';
-                if (index < 3) rankingCard.classList.add(`rank-${index + 1}`);
-                rankingCard.innerHTML = `<span class="ranking-position">${index + 1}.</span><img src="${iconSrc}" class="ranking-icon" alt="Insignia de Rango"><span class="ranking-name">${name}</span><span class="ranking-score">${Math.floor(Math.random() * 50) + 20}</span>`;
-                dailyRankingList.appendChild(rankingCard);
-            });
-        }
-        function displayCourseStats(stats) {
-            avgScoreContainer.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/3138/3138806.png" class="stat-icon" alt="Icono de una calculadora"><h4>Promedio Puntaje</h4><p>${stats.avgScore}</p>`;
-            topStudentContainer.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/3112/3112946.png" class="stat-icon" alt="Icono de un trofeo"><h4>Mejor Puntaje</h4><p>${stats.topStudent}</p>`;
-            mostPositiveContainer.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/1683/1683159.png" class="stat-icon" alt="Icono de pulgar arriba"><h4>Hábito Positivo Destacado</h4><p>${stats.mostPositive}</p>`;
-            mostNegativeContainer.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/1683/1683182.png" class="stat-icon" alt="Icono de una lupa sobre un objetivo"><h4>Área de Enfoque Principal</h4><p>${stats.mostNegative}</p>`;
-        }
+        function getInitials(name) { const nameParts = name.split(' '); if (nameParts.length > 1) return (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase(); return name.substring(0, 2).toUpperCase(); }
+        const pastelColors = ['#ffadad', '#ffd6a5', '#fdffb6', '#caffbf', '#9bf6ff', '#a0c4ff', '#bdb2ff', '#ffc6ff'];
+        function getColorForName(name) { let hash = 0; for (let i = 0; i < name.length; i++) { hash += name.charCodeAt(i); } return pastelColors[hash % pastelColors.length]; }
+        studentNames.forEach(name => { const studentElement = document.createElement('div'); studentElement.className = 'student-item animated-section'; studentElement.setAttribute('role', 'button'); studentElement.setAttribute('tabindex', '0'); const initials = getInitials(name); const color = getColorForName(name); studentElement.innerHTML = `<div class="student-avatar" style="background-color: ${color};">${initials}</div><span class="student-name">${name}</span>`; studentListContainer.appendChild(studentElement); });
+        function fetchDummyData(studentName) { if (allStudentData[studentName]) return Promise.resolve(allStudentData[studentName]); const dictionary = { adaptive: [ { name: "Participación Voluntaria", icon: "https://cdn-icons-png.flaticon.com/512/2995/2995459.png" }, { name: "Ayuda a Pares", icon: "https://cdn-icons-png.flaticon.com/512/8157/8157973.png" }, { name: "Entrega a Tiempo", icon: "https://cdn-icons-png.flaticon.com/512/2666/2666235.png" }, { name: "Puntualidad y Preparación", icon: "https://cdn-icons-png.flaticon.com/512/2857/2857413.png" }, { name: "Esfuerzo y Perseverancia", icon: "https://cdn-icons-png.flaticon.com/512/4346/4346769.png" }, { name: "Colaboración en Equipo", icon: "https://cdn-icons-png.flaticon.com/512/3301/3301548.png" }, { name: "Escucha Activa", icon: "https://cdn-icons-png.flaticon.com/512/4800/4800885.png" }, { name: "Iniciativa Positiva", icon: "https://cdn-icons-png.flaticon.com/512/3653/3653194.png" }, { name: "Cuidado del Entorno", icon: "https://cdn-icons-png.flaticon.com/512/10014/10014361.png" }, { name: "Seguimiento de Indicaciones", icon: "https://cdn-icons-png.flaticon.com/512/3063/3063831.png" }, ], maladaptive: [ { name: "Interrupción de la Clase", icon: "https://cdn-icons-png.flaticon.com/512/2899/2899853.png" }, { name: "Falta de Material", icon: "https://cdn-icons-png.flaticon.com/512/8659/8659556.png" }, { name: "Interacción Negativa con Pares", icon: "https://cdn-icons-png.flaticon.com/512/5725/5725966.png" }, { name: "Fuera de Tarea", icon: "https://cdn-icons-png.flaticon.com/512/10410/10410147.png" }, { name: "Entrega Tardía", icon: "https://cdn-icons-png.flaticon.com/512/10691/10691866.png" }, { name: "Incumplimiento de Indicaciones", icon: "https://cdn-icons-png.flaticon.com/512/2338/2338416.png" }, { name: "Levantarse sin Permiso", icon: "https://cdn-icons-png.flaticon.com/512/2097/2097513.png" }, { name: "Uso Inadecuado de Material", icon: "https://cdn-icons-png.flaticon.com/512/7517/7517564.png" }, { name: "Actitud Desafiante", icon: "https://cdn-icons-png.flaticon.com/512/7474/7474776.png" }, { name: "Llegada Tarde", icon: "https://cdn-icons-png.flaticon.com/512/3238/3238125.png" }, ] }; const data = { adaptive: dictionary.adaptive.map(b => ({ ...b, count: Math.floor(Math.random() * 20) })), maladaptive: dictionary.maladaptive.map(b => ({ ...b, count: Math.floor(Math.random() * 6) })), }; allStudentData[studentName] = data; return Promise.resolve(data); }
+        function calculateTotalScore(data) { const positiveScore = data.adaptive.reduce((sum, b) => sum + b.count, 0) * 20; const negativeScore = data.maladaptive.reduce((sum, b) => sum + b.count, 0) * 10; return positiveScore - negativeScore; }
+        function determineRank(score) { if (score < 200) return "Pequeña Semilla 🌱"; if (score < 800) return "Flor Creciente 🌸"; if (score < 1500) return "Árbol Amistoso 🌳"; return "Sol Radiante ☀️"; }
+        function calculateProgress(score) { const maxScoreGoal = 1500; const progress = (score / maxScoreGoal) * 100; return Math.min(progress, 100); }
+        function displayAllData(data) { const score = calculateTotalScore(data); const rank = determineRank(score); const progress = calculateProgress(score); scoreDisplay.textContent = score; rankDisplay.textContent = rank; setTimeout(() => { progressBar.style.width = `${progress}%`; }, 100); displaySolutionMessage(score, selectedStudent); adaptiveList.innerHTML = ''; maladaptiveList.innerHTML = ''; data.adaptive.forEach(b => adaptiveList.appendChild(createBehaviorCard(b, 'adaptive'))); data.maladaptive.forEach(b => maladaptiveList.appendChild(createBehaviorCard(b, 'maladaptive'))); resultsContainer.style.display = 'block'; updateRankingsAndStats(); }
+        function createBehaviorCard(behavior, type) { const card = document.createElement('article'); card.className = `behavior-card ${type}-card`; card.innerHTML = `<img src="${behavior.icon}" alt="Icono para ${behavior.name}" class="behavior-icon"><div class="behavior-name">${behavior.name}</div><div class="behavior-count">${behavior.count}</div>`; return card; }
+        function showCongratulationsModal(rankIndex, studentName) { const confettiContainer = document.getElementById('confetti-container'); const messages = [ { title: `¡INCREÍBLE, ${studentName}! 👑`, text: `¡Eres el <strong>#1</strong> en el ranking general! Tu esfuerzo y dedicación son una inspiración para todos. Sigue brillando así. ¡Estamos muy orgullosos de ti!` }, { title: `¡FENOMENAL, ${studentName}! 🥈`, text: `¡Alcanzaste el <strong>segundo lugar</strong> en el ranking! Tu progreso es fantástico y demuestra tu gran capacidad. ¡Sigue así y alcanzarás la cima!` }, { title: `¡GENIAL, ${studentName}! 🥉`, text: `¡Estás en el podio con el <strong>tercer lugar</strong>! Es un logro maravilloso que refleja tu trabajo duro. ¡No te detengas, vas por un camino excelente!` } ]; const congratsMessage = messages[rankIndex]; infoModalTitle.innerHTML = congratsMessage.title; infoModalText.innerHTML = congratsMessage.text; infoModal.classList.add('visible', 'congrats-modal'); confettiContainer.innerHTML = ''; for (let i = 0; i < 50; i++) { const confetti = document.createElement('div'); confetti.className = 'confetti'; confetti.style.left = Math.random() * 100 + '%'; confetti.style.animationDelay = Math.random() * 5 + 's'; confettiContainer.appendChild(confetti); } }
+        function displayRankings() { const rankings = calculateRankings(); generalRankingList.innerHTML = ''; dailyRankingList.innerHTML = ''; const topIcons = [ "https://cdn-icons-png.flaticon.com/512/2583/2583434.png", "https://cdn-icons-png.flaticon.com/512/2583/2583319.png", "https://cdn-icons-png.flaticon.com/512/2583/2583264.png", ]; const starIcon = "https://cdn-icons-png.flaticon.com/512/1828/1828884.png"; rankings.slice(0, 6).forEach(([name, score], index) => { const iconSrc = index < 3 ? topIcons[index] : starIcon; const rankingCard = document.createElement('article'); rankingCard.className = 'ranking-card'; if (index < 3) rankingCard.classList.add(`rank-${index + 1}`); const initials = getInitials(name); const color = getColorForName(name); rankingCard.innerHTML = `<span class="ranking-position">${index + 1}.</span><div class="ranking-avatar" style="background-color:${color};">${initials}</div><img src="${iconSrc}" class="ranking-icon" alt="Insignia de Rango"><span class="ranking-name">${name}</span><span class="ranking-score">${score}</span>`; generalRankingList.appendChild(rankingCard); }); rankings.sort(() => 0.5 - Math.random()).slice(0, 6).forEach(([name, score], index) => { const iconSrc = index < 3 ? topIcons[index] : starIcon; const rankingCard = document.createElement('article'); rankingCard.className = 'ranking-card'; if (index < 3) rankingCard.classList.add(`rank-${index + 1}`); const initials = getInitials(name); const color = getColorForName(name); rankingCard.innerHTML = `<span class="ranking-position">${index + 1}.</span><div class="ranking-avatar" style="background-color:${color};">${initials}</div><img src="${iconSrc}" class="ranking-icon" alt="Insignia de Rango"><span class="ranking-name">${name}</span><span class="ranking-score">${Math.floor(Math.random() * 50) + 20}</span>`; dailyRankingList.appendChild(rankingCard); }); }
+        function calculateRankings() { return Object.entries(allStudentData).map(([name, data]) => [name, calculateTotalScore(data)]).sort(([, scoreA], [, scoreB]) => scoreB - scoreA); }
+        function calculateCourseStats() { if (Object.keys(allStudentData).length === 0) return { avgScore: 0, topStudent: 'N/A', mostPositive: 'N/A', mostNegative: 'N/A' }; let totalScoreSum = 0, topScore = -Infinity, topStudentName = 'N/A'; const allPositiveCounts = {}, allNegativeCounts = {}; for (const name in allStudentData) { const score = calculateTotalScore(allStudentData[name]); totalScoreSum += score; if (score > topScore) { topScore = score; topStudentName = name; } allStudentData[name].adaptive.forEach(b => { allPositiveCounts[b.name] = (allPositiveCounts[b.name] || 0) + b.count; }); allStudentData[name].maladaptive.forEach(b => { allNegativeCounts[b.name] = (allNegativeCounts[b.name] || 0) + b.count; }); } const avgScore = totalScoreSum / Object.keys(allStudentData).length; const mostPositiveBehavior = Object.keys(allPositiveCounts).length ? Object.entries(allPositiveCounts).sort(([, a], [, b]) => b - a)[0][0] : 'N/A'; const mostNegativeBehavior = Object.keys(allNegativeCounts).length ? Object.entries(allNegativeCounts).sort(([, a], [, b]) => b - a)[0][0] : 'N/A'; return { avgScore: avgScore.toFixed(0), topStudent: topStudentName, mostPositive: mostPositiveBehavior, mostNegative: mostNegativeBehavior }; }
+        function displayCourseStats(stats) { avgScoreContainer.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/3138/3138806.png" class="stat-icon" alt="Icono de una calculadora"><h4>Promedio Puntaje</h4><p>${stats.avgScore}</p>`; topStudentContainer.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/3112/3112946.png" class="stat-icon" alt="Icono de un trofeo"><h4>Mejor Puntaje</h4><p>${stats.topStudent}</p>`; mostPositiveContainer.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/1683/1683159.png" class="stat-icon" alt="Icono de pulgar arriba"><h4>Hábito Positivo Destacado</h4><p>${stats.mostPositive}</p>`; mostNegativeContainer.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/1683/1683182.png" class="stat-icon" alt="Icono de una lupa sobre un objetivo"><h4>Área de Enfoque Principal</h4><p>${stats.mostNegative}</p>`; }
         function updateRankingsAndStats() { displayRankings(); const stats = calculateCourseStats(); displayCourseStats(stats); }
-        
-        // --- MANEJO DE EVENTOS (La interactividad) ---
+        function displaySolutionMessage(score, studentName) { let title, text, icon; if (score >= 800) { icon = '🎉'; title = `¡Excelente trabajo, ${studentName}!`; text = `Tus resultados son fantásticos y demuestran un gran compromiso y una actitud positiva. ¡Sigue así, eres un modelo a seguir!<br><br><strong>Sugerencia para padres:</strong> Conversa con tu hijo/a sobre cómo se siente al ser un líder positivo. ¿Cómo pueden celebrar estos logros en casa?`; } else { icon = '💡'; title = `¡Un mapa para crecer juntos!`; text = `Estos resultados son una oportunidad para conversar y mejorar en equipo. Las "Áreas a Mejorar" no son un problema, sino el punto de partida para nuestro próximo éxito.<br><br><strong>Sugerencia para padres:</strong> Vean juntos las "Conductas Positivas" y celébrenlas. Luego, elijan <strong>una sola</strong> "Área a Mejorar" para enfocarse esta semana. ¿Qué pequeño paso pueden dar juntos para lograrlo?`; } solutionMessageContainer.innerHTML = `<div class="message-icon">${icon}</div><h4>${title}</h4><p>${text}</p>`; solutionMessageContainer.classList.add('is-visible'); }
         function handleStudentSelection(event) {
             const target = event.target.closest('.student-item');
             if (target) {
-                selectedStudent = target.textContent;
-                modalTitle.innerHTML = `¡Hola, ${selectedStudent}! <br> Ingresa tu PIN Secreto`;
-                errorMessage.textContent = '';
-                passwordInput.value = '';
-                passwordModal.classList.add('visible');
-                passwordInput.focus();
+                const nameSpan = target.querySelector('.student-name');
+                if (nameSpan) {
+                    selectedStudent = nameSpan.textContent;
+                    modalTitle.innerHTML = `¡Hola, ${selectedStudent}! <br> Ingresa tu PIN Secreto`;
+                    errorMessage.textContent = '';
+                    passwordInput.value = '';
+                    passwordModal.classList.add('visible');
+                    passwordInput.focus();
+                }
             }
         }
         studentListContainer.addEventListener('click', handleStudentSelection);
         studentListContainer.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') handleStudentSelection(e); });
-        
-        verifyPasswordBtn.addEventListener('click', async () => {
-            if (passwordInput.value === '1234') { 
-                const data = await fetchDummyData(selectedStudent);
-                passwordModal.classList.remove('visible');
-                displayAllData(data);
-                const rankings = calculateRankings();
-                const rankIndex = rankings.findIndex(([name]) => name === selectedStudent);
-                if (rankIndex !== -1 && rankIndex < 3) {
-                    setTimeout(() => { showCongratulationsModal(rankIndex, selectedStudent); }, 500);
-                }
-            } else { errorMessage.textContent = 'PIN incorrecto. ¡Intenta de nuevo!'; }
-        });
+        verifyPasswordBtn.addEventListener('click', async () => { if (passwordInput.value === '1234') { const data = await fetchDummyData(selectedStudent); passwordModal.classList.remove('visible'); displayAllData(data); resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' }); const rankings = calculateRankings(); const rankIndex = rankings.findIndex(([name]) => name === selectedStudent); if (rankIndex !== -1 && rankIndex < 3) { setTimeout(() => { showCongratulationsModal(rankIndex, selectedStudent); }, 500); } } else { errorMessage.textContent = 'PIN incorrecto. ¡Intenta de nuevo!'; } });
         passwordModal.addEventListener('click', (e) => { if (e.target === passwordModal) passwordModal.classList.remove('visible'); });
-        
         function showInfoModal(type) {
             const confettiContainer = document.getElementById('confetti-container');
             confettiContainer.innerHTML = ''; 
             infoModal.classList.remove('congrats-modal');
             const info = infoTexts[type];
-            infoModalTitle.textContent = info.title;
-            infoModalText.textContent = info.text;
+            infoModalTitle.innerHTML = info.title;
+            infoModalText.innerHTML = info.text.replace(/\n/g, '<br>');
             infoModal.classList.add('visible');
         }
-
-        // Delegación de eventos para todos los iconos de información
-        document.querySelector('.container').addEventListener('click', (e) => {
-            const infoIcon = e.target.closest('.info-icon');
-            if (infoIcon) {
-                e.stopPropagation();
-                const infoType = infoIcon.dataset.info;
-                showInfoModal(infoType);
-            }
-        });
-        
+        document.querySelector('.container').addEventListener('click', (e) => { const infoIcon = e.target.closest('.info-icon'); if (infoIcon) { e.stopPropagation(); const infoType = infoIcon.dataset.info; showInfoModal(infoType); } });
         infoModalCloseBtn.addEventListener('click', () => infoModal.classList.remove('visible', 'congrats-modal'));
         infoModal.addEventListener('click', (e) => { if (e.target === infoModal) infoModal.classList.remove('visible', 'congrats-modal'); });
-        
-        // --- INICIALIZACIÓN ---
-        // Se ejecuta cuando la página ha cargado completamente.
+        themeToggle.addEventListener('change', () => { if (themeToggle.checked) { document.body.classList.add('dark-mode'); localStorage.setItem('theme', 'dark'); } else { document.body.classList.remove('dark-mode'); localStorage.setItem('theme', 'light'); } });
         window.onload = async () => {
-            // Generamos datos para todos los estudiantes para tener estadísticas y rankings iniciales.
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') { document.body.classList.add('dark-mode'); themeToggle.checked = true; }
+            currentYearSpan.textContent = new Date().getFullYear();
+            const animationObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.animated-section').forEach((section) => {
+                animationObserver.observe(section);
+            });
             for (const name of studentNames) { await fetchDummyData(name); }
             updateRankingsAndStats();
         };
