@@ -1,25 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- ============== METADATOS ESENCIALES Y SEO ============== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visor de Conductas | Don Bosco | Tercero A</title>
     
+    <!-- Meta-etiquetas para que los buscadores y redes sociales entiendan la página -->
     <meta name="description" content="Aplicación de seguimiento de conductas y economía de fichas para los estudiantes del Tercero A de Secundaria del Col. Don Bosco Central Particular.">
     <meta name="keywords" content="educación, gamificación, economía de fichas, seguimiento de conducta, Don Bosco, Santa Cruz, Bolivia">
-    <meta name="author" content="Profesor de Tercero A">
-    <link rel="canonical" href="https://ejorequipo.github.io/"> <meta property="og:title" content="Visor de Conductas | Don Bosco | Tercero A">
+    <meta name="author" content="Luis Alfredo Andia Valverde">
+    <link rel="canonical" href="https://ejorequipo.github.io/"> <!-- URL Canónica: La dirección oficial de esta página -->
+
+    <!-- Open Graph (para compartir en Facebook, WhatsApp, etc.) -->
+    <meta property="og:title" content="Visor de Conductas | Don Bosco | Tercero A">
     <meta property="og:description" content="Una forma divertida y motivadora de seguir el progreso en el aula.">
-    <meta property="og:image" content="https://i.imgur.com/example.png"> <meta property="og:url" content="https://ejorequipo.github.io/">
+    <meta property="og:image" content="https://i.imgur.com/your-image.png"> <!-- URL a una imagen representativa para compartir -->
+    <meta property="og:url" content="https://ejorequipo.github.io/">
     <meta property="og:type" content="website">
 
+    <!-- Twitter Card (para compartir en Twitter) -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Visor de Conductas | Don Bosco | Tercero A">
     <meta name="twitter:description" content="Una forma divertida y motivadora de seguir el progreso en el aula.">
-    <meta name="twitter:image" content="https://i.imgur.com/example.png"> <style>
+    <meta name="twitter:image" content="https://i.imgur.com/your-image.png">
+
+    <style>
         /* --- Importar Fuente y Estilos Base --- */
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
         
+        /* Define variables de color para fácil mantenimiento y consistencia */
         :root {
             --color-primario: #ff8fab; --color-secundario: #84d2f6; --color-adaptativo: #79d2a6; --color-inadaptativo: #ffb38a;
             --color-oro: #ffd700; --color-plata: #c0c0c0; --color-bronce: #cd7f32;
@@ -27,11 +37,12 @@
             --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.08); --borde-redondeado: 20px;
         }
 
-        html { font-size: 16px; scroll-behavior: smooth; }
+        /* --- Estilos Generales y de Cuerpo --- */
+        html { font-size: 16px; scroll-behavior: smooth; /* Desplazamiento suave */ }
         body { font-family: 'Nunito', sans-serif; background-color: var(--color-fondo); color: var(--color-texto); margin: 0; padding: 1rem; line-height: 1.6; }
         .container { max-width: 1200px; margin: 0 auto; padding: 1rem; background-color: var(--color-blanco); border-radius: var(--borde-redondeado); box-shadow: var(--sombra-suave); }
 
-        /* --- Logo Creativo con CSS --- */
+        /* --- Logo Creativo con Animación CSS --- */
         .logo { display: flex; align-items: flex-end; justify-content: center; height: 50px; gap: 4px; margin-bottom: 1rem; }
         .logo-bar { width: 12px; background-color: var(--color-secundario); border-radius: 5px; transition: height 0.5s ease; }
         .logo-bar:nth-child(1) { height: 20px; background-color: var(--color-adaptativo); animation: bounce 2s infinite ease-in-out; }
@@ -41,16 +52,19 @@
 
         /* --- Encabezado y Títulos --- */
         header { text-align: center; padding-bottom: 1rem; margin-bottom: 2rem; }
-        header h1 { color: var(--color-primario); font-weight: 900; font-size: clamp(2rem, 6vw, 2.8rem); margin: 0; }
+        /* clamp() para un tamaño de fuente responsivo */
+        header h1 { color: var(--color-primario); font-weight: 900; font-size: clamp(2rem, 6vw, 2.8rem); margin: 0; display: inline-flex; align-items: center; justify-content: center; }
         .header-subtitle { font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 700; margin: 5px 0; color: var(--color-secundario); }
         .section-title { text-align: center; color: var(--color-primario); font-weight: 900; font-size: clamp(1.5rem, 5vw, 2rem); margin: 2.5rem 0 1.5rem 0; }
+        .info-icon { display: inline-block; width: 20px; height: 20px; border-radius: 50%; background-color: #ddd; color: var(--color-blanco); text-align: center; line-height: 20px; font-size: 0.8rem; font-weight: 700; cursor: pointer; margin-left: 8px; transition: all 0.2s; }
+        .info-icon:hover { background-color: var(--color-secundario); transform: scale(1.1); }
         
         /* --- Contenedores Principales y Rejillas Responsivas --- */
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
         #rankingsGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
         #behaviorsGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
 
-        /* --- Estilos de Tarjetas (Estadísticas, Rankings, etc.) --- */
+        /* --- Estilos de Tarjetas Genéricas (Estadísticas, Rankings, etc.) --- */
         .stat-item, .ranking-card, .behavior-card { background: var(--color-blanco); border-radius: 15px; box-shadow: var(--sombra-suave); padding: 1rem; transition: transform 0.2s; }
         .stat-item:hover, .ranking-card:hover, .behavior-card:hover { transform: translateY(-5px); }
         .stat-item { text-align: center; }
@@ -62,26 +76,25 @@
         #rankingsSection h3 { color: var(--color-secundario); font-weight: 700; padding-bottom: 10px; border-bottom: 3px dotted var(--color-secundario); text-align: center; margin-top: 0;}
         .ranking-card { display: flex; align-items: center; background-color: #f0e8f355; border: 2px solid transparent; }
         .ranking-card.rank-1 { background: linear-gradient(135deg, #fff7d1, #ffeeb1); border-color: var(--color-oro); transform: scale(1.05); }
-        .ranking-card.rank-2 { background-color: #f0f0f0; border-color: var(--color-plata); }
+        .ranking-card.rank-2 { background: linear-gradient(135deg, #f5f7fa, #e9ecef); border-color: var(--color-plata); } /* Jerarquía visual corregida */
         .ranking-card.rank-3 { background-color: #fbeee2; border-color: var(--color-bronce); }
         .ranking-position { font-size: 1.2rem; font-weight: 900; color: var(--color-primario); width: 30px; }
         .ranking-icon { width: 35px; height: 35px; margin: 0 10px; }
         .ranking-name { flex-grow: 1; font-weight: 700; }
         .rank-1 .ranking-name, .rank-2 .ranking-name, .rank-3 .ranking-name { font-size: 1.1rem; font-weight: 900; }
-        .rank-1 .ranking-name { color: #c7a700; }
+        .rank-1 .ranking-name { color: #b38600; }
+        .rank-2 .ranking-name { color: #5a6268; } /* Color más oscuro para mejor contraste */
+        .rank-3 .ranking-name { color: #8c5a2d; }
         .ranking-score { font-weight: 900; color: #fff; background-color: var(--color-primario); padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.9rem; }
         
         /* --- Lista de Estudiantes --- */
-        #studentListContainer { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; margin-top: 20px; }
+        #studentListContainer { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-top: 20px; }
         .student-item { padding: 12px; background-color: #f0e8f3; border-radius: 15px; text-align: center; font-weight: 700; cursor: pointer; transition: all 0.2s ease-in-out; border-bottom: 4px solid #d9c8e0; }
         .student-item:hover { background-color: var(--color-primario); color: var(--color-blanco); transform: translateY(-4px); border-bottom-color: #e06b8b; box-shadow: var(--sombra-suave); }
 
         /* --- Vista Individual --- */
         #resultsContainer { display: none; }
         #summarySection { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; padding: 1.5rem; background-color: #f0e8f322; border-radius: var(--borde-redondeado); margin-bottom: 2rem; text-align: center; }
-        .summary-item h4 { margin: 0 0 10px 0; color: #aaa; text-transform: uppercase; font-size: 0.9rem; font-weight: 700; display: flex; justify-content: center; align-items: center; }
-        .info-icon { display: inline-block; width: 20px; height: 20px; border-radius: 50%; background-color: #ddd; color: var(--color-blanco); text-align: center; line-height: 20px; font-size: 0.8rem; font-weight: 700; cursor: pointer; margin-left: 8px; transition: all 0.2s; }
-        .info-icon:hover { background-color: var(--color-secundario); transform: scale(1.1); }
         .summary-item p { margin: 0; font-size: 2.2rem; font-weight: 900; }
         #scoreDisplay { color: var(--color-primario); }
         #rankDisplay { color: var(--color-secundario); font-size: 1.8rem; }
@@ -90,27 +103,28 @@
         .behavior-column h3 { text-align: center; padding-bottom: 10px; border-bottom: 4px dotted; font-size: 1.5rem; font-weight: 900; }
         #adaptiveContainer h3 { border-color: var(--color-adaptativo); color: var(--color-adaptativo); }
         #maladaptiveContainer h3 { border-color: var(--color-inadaptativo); color: var(--color-inadaptativo); }
-        .behavior-icon { width: 50px; height: 50px; margin-right: 1rem; }
-        .behavior-name { flex-grow: 1; font-weight: 700; font-size: 1.1rem; }
+        .behavior-card { display: grid; grid-template-columns: 50px 1fr auto; gap: 1rem; align-items: center; /* Alineación vertical perfecta */ }
+        .behavior-icon { width: 50px; height: 50px; }
+        .behavior-name { font-weight: 700; font-size: 1.1rem; }
         .behavior-count { font-size: 1.8rem; font-weight: 900; padding: 5px 15px; border-radius: 50px; min-width: 50px; text-align: center; }
         .adaptive-card .behavior-count { color: var(--color-adaptativo); background-color: #eaf6ec; }
         .maladaptive-card .behavior-count { color: var(--color-inadaptativo); background-color: #fff4e7; }
         
         /* --- Media Queries para Responsividad --- */
         @media (max-width: 992px) {
-            #rankingsGrid { grid-template-columns: 1fr; }
+            #rankingsGrid { grid-template-columns: 1fr; } /* Apila rankings en tabletas */
         }
         @media (max-width: 768px) {
-            #behaviorsGrid { grid-template-columns: 1fr; }
+            #behaviorsGrid { grid-template-columns: 1fr; } /* Apila conductas en móviles */
             .grid-container { grid-template-columns: 1fr 1fr; }
         }
         @media (max-width: 480px) {
             body { padding: 10px; }
-            .grid-container { grid-template-columns: 1fr; }
+            .grid-container, #rankingsGrid { grid-template-columns: 1fr; } /* Todo a una columna en móviles pequeños */
             .container { padding: 15px; }
         }
 
-        /* --- Modales --- */
+        /* --- Modales y Pie de Página --- */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(90, 75, 100, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
         .modal-overlay.visible { opacity: 1; visibility: visible; }
         .modal-content { background: var(--color-blanco); padding: 40px; border-radius: var(--borde-redondeado); text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.3); width: 90%; max-width: 450px; transform: scale(0.9); transition: all 0.3s ease; position:relative; }
@@ -130,6 +144,15 @@
         .confetti:nth-child(3n) { background-color: var(--color-adaptativo); animation-duration: 6s; }
         .confetti:nth-child(4n) { width: 15px; height: 7px; background-color: var(--color-oro); animation-duration: 4s; }
         @keyframes fall { from { top: -20px; transform: rotate(0deg); } to { top: 100%; transform: rotate(720deg); } }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -140,7 +163,7 @@
                 <div class="logo-bar"></div>
                 <div class="logo-bar"></div>
             </div>
-            <h1>Visor de Conductas</h1>
+            <h1>Visor de Conductas <span class="info-icon" data-info="main" role="button" aria-label="Ver información sobre la aplicación">?</span></h1>
             <p class="header-subtitle">Col. Don Bosco Central Particular</p>
             <p class="header-subtitle">Curso: Tercero "A" de Secundaria</p>
         </header>
@@ -204,6 +227,10 @@
             </article>
         </section>
     </main>
+    
+    <footer class="container" style="background: transparent; box-shadow: none;">
+        <p>Creado con ❤️ por Luis Alfredo Andia Valverde</p>
+    </footer>
 
     <div id="passwordModal" class="modal-overlay" role="dialog" aria-modal="true">
         <div class="modal-content">
@@ -225,6 +252,7 @@
 
     <script>
         // --- SELECCIÓN DE ELEMENTOS DEL DOM ---
+        // Se guardan referencias a los elementos HTML para no tener que buscarlos cada vez.
         const studentListContainer = document.getElementById('studentListContainer');
         const passwordModal = document.getElementById('passwordModal');
         const modalTitle = document.getElementById('modalTitle');
@@ -247,19 +275,24 @@
         const infoModalTitle = document.getElementById('infoModalTitle');
         const infoModalText = document.getElementById('infoModalText');
         const infoModalCloseBtn = document.getElementById('infoModalCloseBtn');
-        let selectedStudent = "";
-        const allStudentData = {};
+        
+        // --- VARIABLES GLOBALES Y DATOS INICIALES ---
+        let selectedStudent = ""; // Guarda el nombre del estudiante seleccionado.
+        const allStudentData = {}; // Almacena los datos de todos los estudiantes para los cálculos globales.
+        
+        // Objeto que contiene los textos para los modales de información.
         const infoTexts = {
+            main: { title: "🎯 Objetivo de la Aplicación", text: "Esta aplicación es una herramienta de 'Economía de Fichas' diseñada para gamificar y reforzar positivamente el comportamiento en el aula. Su objetivo es hacer visible el progreso, motivar a los estudiantes a través de un sistema de puntos justo y claro, e identificar tanto las fortalezas grupales como las áreas que necesitan más apoyo. Sirve como un puente de comunicación transparente entre el profesor, los estudiantes y los padres." },
             score: { title: "ℹ️ ¿Qué es el Puntaje Total?", text: "El Puntaje Total es el balance de la 'economía de fichas'. Se calcula con la fórmula: (Total Conductas Positivas x 20) - (Total Conductas a Mejorar x 10). ¡Un puntaje alto refleja un gran esfuerzo!" },
             rank: { title: "👑 ¿Qué significa el Rango?", text: "El Rango es un reconocimiento por alcanzar ciertos niveles de puntaje, desde 'Pequeña Semilla 🌱' hasta 'Sol Radiante ☀️', celebrando cada paso del crecimiento." },
             progress: { title: "📊 ¿Qué muestra el Progreso?", text: "Esta barra muestra visualmente qué tan cerca está el estudiante de alcanzar el siguiente Rango. ¡Cada pequeño esfuerzo cuenta para llenar la barra!" }
         };
-        const studentNames = [
-            "Ana", "Bruno", "Carla", "David", "Elena", "Fernando", "Gabriela", "Hugo", "Isabel", "Javier", "Laura", "Mateo", "Nora", "Óscar", "Paula", "Quintín", "Raquel", "Sergio", "Teresa", "Ulises",
-            "Valeria", "Walter", "Ximena", "Yago", "Zoe", "Andrés", "Beatriz", "Carlos", "Diana", "Esteban", "Fátima", "Gerardo", "Helena", "Iván", "Jimena", "Kevin", "Lucía", "Marcos", "Natalia", "Pablo"
-        ];
+
+        const studentNames = [ "Ana", "Bruno", "Carla", "David", "Elena", "Fernando", "Gabriela", "Hugo", "Isabel", "Javier", "Laura", "Mateo", "Nora", "Óscar", "Paula", "Quintín", "Raquel", "Sergio", "Teresa", "Ulises", "Valeria", "Walter", "Ximena", "Yago", "Zoe", "Andrés", "Beatriz", "Carlos", "Diana", "Esteban", "Fátima", "Gerardo", "Helena", "Iván", "Jimena", "Kevin", "Lucía", "Marcos", "Natalia", "Pablo" ];
         
         // --- LÓGICA DE LA APLICACIÓN ---
+
+        // Función para poblar la lista de estudiantes en la página.
         studentNames.forEach(name => {
             const studentElement = document.createElement('div');
             studentElement.className = 'student-item';
@@ -269,31 +302,22 @@
             studentListContainer.appendChild(studentElement);
         });
 
+        // SIMULACIÓN DEL BACKEND: En una app real, esto sería una llamada a la API de Google Apps Script.
         function fetchDummyData(studentName) {
-            if (allStudentData[studentName]) return Promise.resolve(allStudentData[studentName]);
+            if (allStudentData[studentName]) return Promise.resolve(allStudentData[studentName]); // Si ya tenemos los datos, los devolvemos.
             const dictionary = {
-                adaptive: [
-                    { name: "Participación Voluntaria", icon: "https://cdn-icons-png.flaticon.com/512/2995/2995459.png" }, { name: "Ayuda a Pares", icon: "https://cdn-icons-png.flaticon.com/512/8157/8157973.png" },
-                    { name: "Entrega a Tiempo", icon: "https://cdn-icons-png.flaticon.com/512/2666/2666235.png" }, { name: "Puntualidad y Preparación", icon: "https://cdn-icons-png.flaticon.com/512/2857/2857413.png" },
-                    { name: "Esfuerzo y Perseverancia", icon: "https://cdn-icons-png.flaticon.com/512/4346/4346769.png" }, { name: "Colaboración en Equipo", icon: "https://cdn-icons-png.flaticon.com/512/3301/3301548.png" },
-                    { name: "Escucha Activa", icon: "https://cdn-icons-png.flaticon.com/512/4800/4800885.png" }, { name: "Iniciativa Positiva", icon: "https://cdn-icons-png.flaticon.com/512/3653/3653194.png" },
-                    { name: "Cuidado del Entorno", icon: "https://cdn-icons-png.flaticon.com/512/10014/10014361.png" }, { name: "Seguimiento de Indicaciones", icon: "https://cdn-icons-png.flaticon.com/512/3063/3063831.png" },
-                ],
-                maladaptive: [
-                    { name: "Interrupción de la Clase", icon: "https://cdn-icons-png.flaticon.com/512/2899/2899853.png" }, { name: "Falta de Material", icon: "https://cdn-icons-png.flaticon.com/512/8659/8659556.png" },
-                    { name: "Interacción Negativa con Pares", icon: "https://cdn-icons-png.flaticon.com/512/5725/5725966.png" }, { name: "Fuera de Tarea", icon: "https://cdn-icons-png.flaticon.com/512/10410/10410147.png" },
-                    { name: "Entrega Tardía", icon: "https://cdn-icons-png.flaticon.com/512/10691/10691866.png" }, { name: "Incumplimiento de Indicaciones", icon: "https://cdn-icons-png.flaticon.com/512/2338/2338416.png" },
-                    { name: "Levantarse sin Permiso", icon: "https://cdn-icons-png.flaticon.com/512/2097/2097513.png" }, { name: "Uso Inadecuado de Material", icon: "https://cdn-icons-png.flaticon.com/512/7517/7517564.png" },
-                    { name: "Actitud Desafiante", icon: "https://cdn-icons-png.flaticon.com/512/7474/7474776.png" }, { name: "Llegada Tarde", icon: "https://cdn-icons-png.flaticon.com/512/3238/3238125.png" },
-                ]
+                adaptive: [ { name: "Participación Voluntaria", icon: "https://cdn-icons-png.flaticon.com/512/2995/2995459.png" }, { name: "Ayuda a Pares", icon: "https://cdn-icons-png.flaticon.com/512/8157/8157973.png" }, { name: "Entrega a Tiempo", icon: "https://cdn-icons-png.flaticon.com/512/2666/2666235.png" }, { name: "Puntualidad y Preparación", icon: "https://cdn-icons-png.flaticon.com/512/2857/2857413.png" }, { name: "Esfuerzo y Perseverancia", icon: "https://cdn-icons-png.flaticon.com/512/4346/4346769.png" }, { name: "Colaboración en Equipo", icon: "https://cdn-icons-png.flaticon.com/512/3301/3301548.png" }, { name: "Escucha Activa", icon: "https://cdn-icons-png.flaticon.com/512/4800/4800885.png" }, { name: "Iniciativa Positiva", icon: "https://cdn-icons-png.flaticon.com/512/3653/3653194.png" }, { name: "Cuidado del Entorno", icon: "https://cdn-icons-png.flaticon.com/512/10014/10014361.png" }, { name: "Seguimiento de Indicaciones", icon: "https://cdn-icons-png.flaticon.com/512/3063/3063831.png" }, ],
+                maladaptive: [ { name: "Interrupción de la Clase", icon: "https://cdn-icons-png.flaticon.com/512/2899/2899853.png" }, { name: "Falta de Material", icon: "https://cdn-icons-png.flaticon.com/512/8659/8659556.png" }, { name: "Interacción Negativa con Pares", icon: "https://cdn-icons-png.flaticon.com/512/5725/5725966.png" }, { name: "Fuera de Tarea", icon: "https://cdn-icons-png.flaticon.com/512/10410/10410147.png" }, { name: "Entrega Tardía", icon: "https://cdn-icons-png.flaticon.com/512/10691/10691866.png" }, { name: "Incumplimiento de Indicaciones", icon: "https://cdn-icons-png.flaticon.com/512/2338/2338416.png" }, { name: "Levantarse sin Permiso", icon: "https://cdn-icons-png.flaticon.com/512/2097/2097513.png" }, { name: "Uso Inadecuado de Material", icon: "https://cdn-icons-png.flaticon.com/512/7517/7517564.png" }, { name: "Actitud Desafiante", icon: "https://cdn-icons-png.flaticon.com/512/7474/7474776.png" }, { name: "Llegada Tarde", icon: "https://cdn-icons-png.flaticon.com/512/3238/3238125.png" }, ]
             };
             const data = {
                 adaptive: dictionary.adaptive.map(b => ({ ...b, count: Math.floor(Math.random() * 20) })),
                 maladaptive: dictionary.maladaptive.map(b => ({ ...b, count: Math.floor(Math.random() * 6) })),
             };
-            allStudentData[studentName] = data;
+            allStudentData[studentName] = data; // Guarda los datos generados para cálculos globales.
             return Promise.resolve(data);
         }
+
+        // --- FUNCIONES DE CÁLCULO (El "motor" de la gamificación) ---
         function calculateTotalScore(data) {
             const positiveScore = data.adaptive.reduce((sum, b) => sum + b.count, 0) * 20;
             const negativeScore = data.maladaptive.reduce((sum, b) => sum + b.count, 0) * 10;
@@ -310,6 +334,27 @@
             const progress = (score / maxScoreGoal) * 100;
             return Math.min(progress, 100);
         }
+        function calculateRankings() {
+            return Object.entries(allStudentData).map(([name, data]) => [name, calculateTotalScore(data)]).sort(([, scoreA], [, scoreB]) => scoreB - scoreA);
+        }
+        function calculateCourseStats() {
+            if (Object.keys(allStudentData).length === 0) return { avgScore: 0, topStudent: 'N/A', mostPositive: 'N/A', mostNegative: 'N/A' };
+            let totalScoreSum = 0, topScore = -Infinity, topStudentName = 'N/A';
+            const allPositiveCounts = {}, allNegativeCounts = {};
+            for (const name in allStudentData) {
+                const score = calculateTotalScore(allStudentData[name]);
+                totalScoreSum += score;
+                if (score > topScore) { topScore = score; topStudentName = name; }
+                allStudentData[name].adaptive.forEach(b => { allPositiveCounts[b.name] = (allPositiveCounts[b.name] || 0) + b.count; });
+                allStudentData[name].maladaptive.forEach(b => { allNegativeCounts[b.name] = (allNegativeCounts[b.name] || 0) + b.count; });
+            }
+            const avgScore = totalScoreSum / Object.keys(allStudentData).length;
+            const mostPositiveBehavior = Object.keys(allPositiveCounts).length ? Object.entries(allPositiveCounts).sort(([, a], [, b]) => b - a)[0][0] : 'N/A';
+            const mostNegativeBehavior = Object.keys(allNegativeCounts).length ? Object.entries(allNegativeCounts).sort(([, a], [, b]) => b - a)[0][0] : 'N/A';
+            return { avgScore: avgScore.toFixed(0), topStudent: topStudentName, mostPositive: mostPositiveBehavior, mostNegative: mostNegativeBehavior };
+        }
+
+        // --- FUNCIONES DE VISUALIZACIÓN (El "pincel" que dibuja la página) ---
         function displayAllData(data) {
             const score = calculateTotalScore(data);
             const rank = determineRank(score);
@@ -319,21 +364,15 @@
             setTimeout(() => { progressBar.style.width = `${progress}%`; }, 100);
             adaptiveList.innerHTML = '';
             maladaptiveList.innerHTML = '';
-            data.adaptive.forEach(b => {
-                const card = createBehaviorCard(b, 'adaptive');
-                adaptiveList.appendChild(card);
-            });
-            data.maladaptive.forEach(b => {
-                const card = createBehaviorCard(b, 'maladaptive');
-                maladaptiveList.appendChild(card);
-            });
+            data.adaptive.forEach(b => adaptiveList.appendChild(createBehaviorCard(b, 'adaptive')));
+            data.maladaptive.forEach(b => maladaptiveList.appendChild(createBehaviorCard(b, 'maladaptive')));
             resultsContainer.style.display = 'block';
             updateRankingsAndStats();
         }
         function createBehaviorCard(behavior, type) {
             const card = document.createElement('article');
             card.className = `behavior-card ${type}-card`;
-            card.innerHTML = `<img src="${behavior.icon}" alt="Icono para ${behavior.name}" class="behavior-icon"><span class="behavior-name">${behavior.name}</span><span class="behavior-count">${behavior.count}</span>`;
+            card.innerHTML = `<img src="${behavior.icon}" alt="Icono para ${behavior.name}" class="behavior-icon"><div class="behavior-name">${behavior.name}</div><div class="behavior-count">${behavior.count}</div>`;
             return card;
         }
         function showCongratulationsModal(rankIndex, studentName) {
@@ -360,11 +399,7 @@
             const rankings = calculateRankings();
             generalRankingList.innerHTML = '';
             dailyRankingList.innerHTML = '';
-            const topIcons = [
-                "https://cdn-icons-png.flaticon.com/512/2583/2583434.png",
-                "https://cdn-icons-png.flaticon.com/512/2583/2583319.png",
-                "https://cdn-icons-png.flaticon.com/512/2583/2583264.png",
-            ];
+            const topIcons = [ "https://cdn-icons-png.flaticon.com/512/2583/2583434.png", "https://cdn-icons-png.flaticon.com/512/2583/2583319.png", "https://cdn-icons-png.flaticon.com/512/2583/2583264.png", ];
             const starIcon = "https://cdn-icons-png.flaticon.com/512/1828/1828884.png";
             rankings.slice(0, 6).forEach(([name, score], index) => {
                 const iconSrc = index < 3 ? topIcons[index] : starIcon;
@@ -383,25 +418,6 @@
                 dailyRankingList.appendChild(rankingCard);
             });
         }
-        function calculateRankings() {
-            return Object.entries(allStudentData).map(([name, data]) => [name, calculateTotalScore(data)]).sort(([, scoreA], [, scoreB]) => scoreB - scoreA);
-        }
-        function calculateCourseStats() {
-            if (Object.keys(allStudentData).length === 0) return { avgScore: 0, topStudent: 'N/A', mostPositive: 'N/A', mostNegative: 'N/A' };
-            let totalScoreSum = 0, topScore = -Infinity, topStudentName = 'N/A';
-            const allPositiveCounts = {}, allNegativeCounts = {};
-            for (const name in allStudentData) {
-                const score = calculateTotalScore(allStudentData[name]);
-                totalScoreSum += score;
-                if (score > topScore) { topScore = score; topStudentName = name; }
-                allStudentData[name].adaptive.forEach(b => { allPositiveCounts[b.name] = (allPositiveCounts[b.name] || 0) + b.count; });
-                allStudentData[name].maladaptive.forEach(b => { allNegativeCounts[b.name] = (allNegativeCounts[b.name] || 0) + b.count; });
-            }
-            const avgScore = totalScoreSum / Object.keys(allStudentData).length;
-            const mostPositiveBehavior = Object.keys(allPositiveCounts).length ? Object.entries(allPositiveCounts).sort(([, a], [, b]) => b - a)[0][0] : 'N/A';
-            const mostNegativeBehavior = Object.keys(allNegativeCounts).length ? Object.entries(allNegativeCounts).sort(([, a], [, b]) => b - a)[0][0] : 'N/A';
-            return { avgScore: avgScore.toFixed(0), topStudent: topStudentName, mostPositive: mostPositiveBehavior, mostNegative: mostNegativeBehavior };
-        }
         function displayCourseStats(stats) {
             avgScoreContainer.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/3138/3138806.png" class="stat-icon" alt="Icono de una calculadora"><h4>Promedio Puntaje</h4><p>${stats.avgScore}</p>`;
             topStudentContainer.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/3112/3112946.png" class="stat-icon" alt="Icono de un trofeo"><h4>Mejor Puntaje</h4><p>${stats.topStudent}</p>`;
@@ -409,6 +425,8 @@
             mostNegativeContainer.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/1683/1683182.png" class="stat-icon" alt="Icono de una lupa sobre un objetivo"><h4>Área de Enfoque Principal</h4><p>${stats.mostNegative}</p>`;
         }
         function updateRankingsAndStats() { displayRankings(); const stats = calculateCourseStats(); displayCourseStats(stats); }
+        
+        // --- MANEJO DE EVENTOS (La interactividad) ---
         function handleStudentSelection(event) {
             const target = event.target.closest('.student-item');
             if (target) {
@@ -421,7 +439,7 @@
             }
         }
         studentListContainer.addEventListener('click', handleStudentSelection);
-        studentListContainer.addEventListener('keydown', (e) => { if(e.key === 'Enter') handleStudentSelection(e); });
+        studentListContainer.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') handleStudentSelection(e); });
         
         verifyPasswordBtn.addEventListener('click', async () => {
             if (passwordInput.value === '1234') { 
@@ -438,26 +456,102 @@
         passwordModal.addEventListener('click', (e) => { if (e.target === passwordModal) passwordModal.classList.remove('visible'); });
         
         function showInfoModal(type) {
+            const confettiContainer = document.getElementById('confetti-container');
+            confettiContainer.innerHTML = ''; 
+            infoModal.classList.remove('congrats-modal');
             const info = infoTexts[type];
             infoModalTitle.textContent = info.title;
             infoModalText.textContent = info.text;
             infoModal.classList.add('visible');
         }
-        document.querySelectorAll('.info-icon').forEach(icon => {
-            icon.addEventListener('click', (e) => {
+
+        // Delegación de eventos para todos los iconos de información
+        document.querySelector('.container').addEventListener('click', (e) => {
+            const infoIcon = e.target.closest('.info-icon');
+            if (infoIcon) {
                 e.stopPropagation();
-                const infoType = e.target.dataset.info;
+                const infoType = infoIcon.dataset.info;
                 showInfoModal(infoType);
-            });
+            }
         });
         
         infoModalCloseBtn.addEventListener('click', () => infoModal.classList.remove('visible', 'congrats-modal'));
         infoModal.addEventListener('click', (e) => { if (e.target === infoModal) infoModal.classList.remove('visible', 'congrats-modal'); });
         
+        // --- INICIALIZACIÓN ---
+        // Se ejecuta cuando la página ha cargado completamente.
         window.onload = async () => {
+            // Generamos datos para todos los estudiantes para tener estadísticas y rankings iniciales.
             for (const name of studentNames) { await fetchDummyData(name); }
             updateRankingsAndStats();
         };
     </script>
 </body>
 </html>
+
+</details>
+Revisión Profesional y Próximos Pasos
+¡Felicidades, Luis Alfredo! Hemos construido juntos una excelente aplicación web de una sola página. No es solo un prototipo, es una base sólida y bien estructurada. Aquí tienes un análisis profesional de lo que hemos logrado y el camino a seguir para convertirlo en una aplicación real con Google Apps Script.
+Puntos Fuertes del Código Actual:
+ * Estructura del Código: La separación de responsabilidades en el JavaScript es clara y escalable. Tienes funciones para:
+   * Cálculo: calculate...
+   * Visualización: display...
+   * Manejo de Eventos: handle...
+   * Simulación de Backend: fetchDummyData
+     Esta organización hace que el código sea fácil de leer, mantener y depurar.
+ * Interfaz de Usuario y Experiencia (UI/UX):
+   * Diseño Kawaii: La estética es coherente, amigable y muy apropiada para el contexto educativo.
+   * Gamificación: La implementación de puntos, rangos, progreso, rankings y felicitaciones crea un sistema de motivación muy completo.
+   * Responsividad: El uso de clamp() para las fuentes y grid-template-columns: repeat(auto-fit, ...) para las rejillas asegura que la aplicación se adapte bien a cualquier tamaño de pantalla.
+   * Interactividad: Las ventanas emergentes (modales) y los iconos de información mejoran la usabilidad y la comunicación con el usuario final.
+ * Buenas Prácticas de Desarrollo Web:
+   * SEO y Semántica: El uso de etiquetas meta y HTML semántico (<main>, <section>, <article>) es un gran paso hacia una web profesional.
+   * Accesibilidad (A11y): La inclusión de atributos role="button" y aria-label en elementos interactivos es una excelente práctica.
+   * CSS Moderno: El uso de variables de CSS (:root) para la paleta de colores facilita enormemente los cambios de diseño futuros.
+Hoja de Ruta para la Transición a Google Apps Script:
+Este código es la "vista" final. Ahora necesitas conectarlo a un "cerebro" real.
+Paso 1: Preparar tu Backend (Google Sheets y Apps Script)
+ * Crea la Hoja de Cálculo:
+   * Crea una Google Sheet con dos pestañas: Registros y Diccionario_Conductas, tal como lo planeamos al principio.
+   * En Registros, pon las columnas: ID_Alumno, Nombre, Contraseña y una columna para cada una de las 20 conductas (ej: Adapt_1, Inadapt_1, etc.). Rellena los nombres de tus estudiantes y sus contraseñas. Los contadores de conducta pueden empezar en 0.
+   * En Diccionario_Conductas, pon las columnas: Codigo, Nombre_Conducta, Tipo e Icono_URL. Rellena esta hoja con las 20 conductas y los enlaces a los iconos que seleccionamos.
+ * Crea el Script de Apps Script:
+   * Dentro de tu Hoja de Cálculo, ve a Extensiones > Apps Script.
+   * Borra el código por defecto y pega un código de servidor que lea los datos de tu hoja. Este código tendrá una función doGet(e) que, dependiendo de los parámetros (action, name, pass), devolverá la lista de estudiantes o los datos de un alumno específico.
+Paso 2: Conectar el Frontend con el Backend
+ * Publica tu Apps Script: Publica tu script como una aplicación web. Asegúrate de darle permisos para que "Cualquier usuario" pueda ejecutarla (incluso anónimos). Esto te dará una URL de la API.
+ * Modifica el JavaScript de tu HTML:
+   * Encuentra la función fetchDummyData. Esta es la única parte importante que cambiará.
+   * Elimina la lógica de simulación que genera datos aleatorios.
+   * En su lugar, usarás la función fetch() de JavaScript para llamar a la URL de tu API de Apps Script.
+   Ejemplo del cambio:
+   // VERSCIÓN ACTUAL (SIMULACIÓN)
+function fetchDummyData(studentName) {
+    // ...código que genera datos aleatorios...
+    return Promise.resolve(data);
+}
+
+// VERSIÓN FUTURA (REAL)
+const API_URL = "URL_DE_TU_APPS_SCRIPT_PUBLICADO";
+
+async function fetchRealData(studentName, password) {
+    // Hacemos la llamada real a la API
+    const response = await fetch(`${API_URL}?action=getBadges&name=${studentName}&pass=${password}`);
+    const data = await response.json();
+
+    if (data.error) {
+        // Manejar errores como contraseña incorrecta
+        throw new Error(data.error);
+    }
+    return data;
+}
+
+   * Deberás adaptar la lógica que llama a esta función (en el evento del botón verifyPasswordBtn) para que use fetchRealData y maneje posibles errores.
+Paso 3 (Opcional pero recomendado): Añadir Funcionalidad de Escritura
+Si quieres que los profesores puedan añadir puntos desde la web (en lugar de solo desde la Hoja de Cálculo), tendrías que:
+ * Crear una función doPost(e) en tu Apps Script que reciba el nombre del alumno y la conducta a incrementar.
+ * Añadir botones de [+] a las tarjetas de conducta en tu HTML.
+ * Crear una función en tu JavaScript que, al hacer clic en [+], envíe una petición POST a tu API para actualizar la celda correspondiente en la Google Sheet.
+¡Y eso es todo! Has llegado a la meta de este emocionante proyecto. Tienes una aplicación de simulación robusta y un plan claro para hacerla completamente funcional. ¡Felicidades por tu dedicación y tus excelentes ideas!
+ 
+   </details>
