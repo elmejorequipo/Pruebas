@@ -313,6 +313,7 @@
 
     <script>
         // --- SELECCIÓN DE ELEMENTOS DEL DOM ---
+        const API_URL = "https://script.google.com/macros/s/AKfycbyo04N4HnzhfEz6MuyiRHa-KcFZ_ZJoUTSGNaHAblmIaC-5ph_CBoraRIwpj0VelaPP/exec";
         const studentListContainer = document.getElementById('studentListContainer');
         const passwordModal = document.getElementById('passwordModal');
         const modalTitle = document.getElementById('modalTitle');
@@ -350,16 +351,41 @@
             progress: { title: "🚀 ¿Qué es la Barra de Progreso?", text: "Imagina que esta barra es un camino hacia tu siguiente gran logro. Cada punto que ganas la llena un poco más, mostrándote visualmente lo cerca que estás de alcanzar el próximo Rango. ¡Es la prueba de que cada pequeño paso positivo te acerca a tus metas!" }
         };
         
-        const studentNames = [ "Ana", "Bruno", "Carla", "David", "Elena", "Fernando", "Gabriela", "Hugo", "Isabel", "Javier", "Laura", "Mateo", "Nora", "Óscar", "Paula", "Quintín", "Raquel", "Sergio", "Teresa", "Ulises", "Valeria", "Walter", "Ximena", "Yago", "Zoe", "Andrés", "Beatriz", "Carlos", "Diana", "Esteban", "Fátima", "Gerardo", "Helena", "Iván", "Jimena", "Kevin", "Lucía", "Marcos", "Natalia", "Pablo" ];
-        
         // --- LÓGICA DE LA APLICACIÓN ---
         function getInitials(name) { const nameParts = name.split(' '); if (nameParts.length > 1) return (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase(); return name.substring(0, 2).toUpperCase(); }
         const pastelColors = ['#ffadad', '#ffd6a5', '#fdffb6', '#caffbf', '#9bf6ff', '#a0c4ff', '#bdb2ff', '#ffc6ff'];
         function getColorForName(name) { let hash = 0; for (let i = 0; i < name.length; i++) { hash += name.charCodeAt(i); } return pastelColors[hash % pastelColors.length]; }
-        studentNames.forEach(name => { const studentElement = document.createElement('div'); studentElement.className = 'student-item animated-section'; studentElement.setAttribute('role', 'button'); studentElement.setAttribute('tabindex', '0'); const initials = getInitials(name); const color = getColorForName(name); studentElement.innerHTML = `<div class="student-avatar" style="background-color: ${color};">${initials}</div><span class="student-name">${name}</span>`; studentListContainer.appendChild(studentElement); });
-        function fetchDummyData(studentName) { if (allStudentData[studentName]) return Promise.resolve(allStudentData[studentName]); const dictionary = { adaptive: [ { name: "Participación Voluntaria", icon: "https://cdn-icons-png.flaticon.com/512/2995/2995459.png" }, { name: "Ayuda a Pares", icon: "https://cdn-icons-png.flaticon.com/512/8157/8157973.png" }, { name: "Entrega a Tiempo", icon: "https://cdn-icons-png.flaticon.com/512/2666/2666235.png" }, { name: "Puntualidad y Preparación", icon: "https://cdn-icons-png.flaticon.com/512/2857/2857413.png" }, { name: "Esfuerzo y Perseverancia", icon: "https://cdn-icons-png.flaticon.com/512/4346/4346769.png" }, { name: "Colaboración en Equipo", icon: "https://cdn-icons-png.flaticon.com/512/3301/3301548.png" }, { name: "Escucha Activa", icon: "https://cdn-icons-png.flaticon.com/512/4800/4800885.png" }, { name: "Iniciativa Positiva", icon: "https://cdn-icons-png.flaticon.com/512/3653/3653194.png" }, { name: "Cuidado del Entorno", icon: "https://cdn-icons-png.flaticon.com/512/10014/10014361.png" }, { name: "Seguimiento de Indicaciones", icon: "https://cdn-icons-png.flaticon.com/512/3063/3063831.png" }, ], maladaptive: [ { name: "Interrupción de la Clase", icon: "https://cdn-icons-png.flaticon.com/512/2899/2899853.png" }, { name: "Falta de Material", icon: "https://cdn-icons-png.flaticon.com/512/8659/8659556.png" }, { name: "Interacción Negativa con Pares", icon: "https://cdn-icons-png.flaticon.com/512/5725/5725966.png" }, { name: "Fuera de Tarea", icon: "https://cdn-icons-png.flaticon.com/512/10410/10410147.png" }, { name: "Entrega Tardía", icon: "https://cdn-icons-png.flaticon.com/512/10691/10691866.png" }, { name: "Incumplimiento de Indicaciones", icon: "https://cdn-icons-png.flaticon.com/512/2338/2338416.png" }, { name: "Levantarse sin Permiso", icon: "https://cdn-icons-png.flaticon.com/512/2097/2097513.png" }, { name: "Uso Inadecuado de Material", icon: "https://cdn-icons-png.flaticon.com/512/7517/7517564.png" }, { name: "Actitud Desafiante", icon: "https://cdn-icons-png.flaticon.com/512/7474/7474776.png" }, { name: "Llegada Tarde", icon: "https://cdn-icons-png.flaticon.com/512/3238/3238125.png" }, ] }; const data = { adaptive: dictionary.adaptive.map(b => ({ ...b, count: Math.floor(Math.random() * 20) })), maladaptive: dictionary.maladaptive.map(b => ({ ...b, count: Math.floor(Math.random() * 6) })), }; allStudentData[studentName] = data; return Promise.resolve(data); }
+        
+        async function fetchRealData(studentName, password) {
+            try {
+                const response = await fetch(`${API_URL}?action=getStudentData&name=${encodeURIComponent(studentName)}&pass=${encodeURIComponent(password)}`);
+                if (!response.ok) throw new Error('Error de red al contactar la API.');
+                const data = await response.json();
+                if (data.error) throw new Error(data.error);
+                allStudentData[studentName] = data;
+                return data;
+            } catch (error) {
+                console.error("Error en fetchRealData:", error);
+                throw error;
+            }
+        }
+
+        async function fetchAllStudentNames() {
+            try {
+                const response = await fetch(`${API_URL}?action=getStudentList`);
+                if (!response.ok) throw new Error('Error de red al obtener la lista de estudiantes.');
+                const names = await response.json();
+                if (names.error) throw new Error(names.error);
+                return names;
+            } catch (error) {
+                console.error("Error al obtener la lista de estudiantes:", error);
+                studentListContainer.innerHTML = '<p style="text-align:center; color:red;">No se pudo cargar la lista de estudiantes. Revisa la URL de la API y la implementación del script.</p>';
+                return [];
+            }
+        }
+
         function calculateTotalScore(data) { const positiveScore = data.adaptive.reduce((sum, b) => sum + b.count, 0) * 20; const negativeScore = data.maladaptive.reduce((sum, b) => sum + b.count, 0) * 10; return positiveScore - negativeScore; }
-        function determineRank(score) { if (score < 200) return "Pequeña Semilla 🌱"; if (score < 800) return "Flor Creciente 🌸"; if (score < 1500) return "Árbol Amistoso 🌳"; return "Sol Radiante ☀️"; }
+        function determineRank(score) { if (score < 200) return "Pequeña Semilla 🌱"; if (score < 800) return "Flor Creciente 🌸"; if (score < 1500) return "Árbol Amistoso �"; return "Sol Radiante ☀️"; }
         function calculateProgress(score) { const maxScoreGoal = 1500; const progress = (score / maxScoreGoal) * 100; return Math.min(progress, 100); }
         function displayAllData(data) { const score = calculateTotalScore(data); const rank = determineRank(score); const progress = calculateProgress(score); scoreDisplay.textContent = score; rankDisplay.textContent = rank; setTimeout(() => { progressBar.style.width = `${progress}%`; }, 100); displaySolutionMessage(score, selectedStudent); adaptiveList.innerHTML = ''; maladaptiveList.innerHTML = ''; data.adaptive.forEach(b => adaptiveList.appendChild(createBehaviorCard(b, 'adaptive'))); data.maladaptive.forEach(b => maladaptiveList.appendChild(createBehaviorCard(b, 'maladaptive'))); resultsContainer.style.display = 'block'; updateRankingsAndStats(); }
         function createBehaviorCard(behavior, type) { const card = document.createElement('article'); card.className = `behavior-card ${type}-card`; card.innerHTML = `<img src="${behavior.icon}" alt="Icono para ${behavior.name}" class="behavior-icon"><div class="behavior-name">${behavior.name}</div><div class="behavior-count">${behavior.count}</div>`; return card; }
@@ -368,7 +394,7 @@
         function calculateRankings() { return Object.entries(allStudentData).map(([name, data]) => [name, calculateTotalScore(data)]).sort(([, scoreA], [, scoreB]) => scoreB - scoreA); }
         function calculateCourseStats() { if (Object.keys(allStudentData).length === 0) return { avgScore: 0, topStudent: 'N/A', mostPositive: 'N/A', mostNegative: 'N/A' }; let totalScoreSum = 0, topScore = -Infinity, topStudentName = 'N/A'; const allPositiveCounts = {}, allNegativeCounts = {}; for (const name in allStudentData) { const score = calculateTotalScore(allStudentData[name]); totalScoreSum += score; if (score > topScore) { topScore = score; topStudentName = name; } allStudentData[name].adaptive.forEach(b => { allPositiveCounts[b.name] = (allPositiveCounts[b.name] || 0) + b.count; }); allStudentData[name].maladaptive.forEach(b => { allNegativeCounts[b.name] = (allNegativeCounts[b.name] || 0) + b.count; }); } const avgScore = totalScoreSum / Object.keys(allStudentData).length; const mostPositiveBehavior = Object.keys(allPositiveCounts).length ? Object.entries(allPositiveCounts).sort(([, a], [, b]) => b - a)[0][0] : 'N/A'; const mostNegativeBehavior = Object.keys(allNegativeCounts).length ? Object.entries(allNegativeCounts).sort(([, a], [, b]) => b - a)[0][0] : 'N/A'; return { avgScore: avgScore.toFixed(0), topStudent: topStudentName, mostPositive: mostPositiveBehavior, mostNegative: mostNegativeBehavior }; }
         function displayCourseStats(stats) { avgScoreContainer.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/3138/3138806.png" class="stat-icon" alt="Icono de una calculadora"><h4>Promedio Puntaje</h4><p>${stats.avgScore}</p>`; topStudentContainer.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/3112/3112946.png" class="stat-icon" alt="Icono de un trofeo"><h4>Mejor Puntaje</h4><p>${stats.topStudent}</p>`; mostPositiveContainer.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/1683/1683159.png" class="stat-icon" alt="Icono de pulgar arriba"><h4>Hábito Positivo Destacado</h4><p>${stats.mostPositive}</p>`; mostNegativeContainer.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/1683/1683182.png" class="stat-icon" alt="Icono de una lupa sobre un objetivo"><h4>Área de Enfoque Principal</h4><p>${stats.mostNegative}</p>`; }
-        function updateRankingsAndStats() { displayRankings(); const stats = calculateCourseStats(); displayCourseStats(stats); }
+        function updateRankingsAndStats() { if (Object.keys(allStudentData).length > 0) { displayRankings(); const stats = calculateCourseStats(); displayCourseStats(stats); } }
         function displaySolutionMessage(score, studentName) { let title, text, icon; if (score >= 800) { icon = '🎉'; title = `¡Excelente trabajo, ${studentName}!`; text = `Tus resultados son fantásticos y demuestran un gran compromiso y una actitud positiva. ¡Sigue así, eres un modelo a seguir!<br><br><strong>Sugerencia para padres:</strong> Conversa con tu hijo/a sobre cómo se siente al ser un líder positivo. ¿Cómo pueden celebrar estos logros en casa?`; } else { icon = '💡'; title = `¡Un mapa para crecer juntos!`; text = `Estos resultados son una oportunidad para conversar y mejorar en equipo. Las "Áreas a Mejorar" no son un problema, sino el punto de partida para nuestro próximo éxito.<br><br><strong>Sugerencia para padres:</strong> Vean juntos las "Conductas Positivas" y celébrenlas. Luego, elijan <strong>una sola</strong> "Área a Mejorar" para enfocarse esta semana. ¿Qué pequeño paso pueden dar juntos para lograrlo?`; } solutionMessageContainer.innerHTML = `<div class="message-icon">${icon}</div><h4>${title}</h4><p>${text}</p>`; solutionMessageContainer.classList.add('is-visible'); }
         function handleStudentSelection(event) {
             const target = event.target.closest('.student-item');
@@ -386,7 +412,7 @@
         }
         studentListContainer.addEventListener('click', handleStudentSelection);
         studentListContainer.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') handleStudentSelection(e); });
-        verifyPasswordBtn.addEventListener('click', async () => { if (passwordInput.value === '1234') { const data = await fetchDummyData(selectedStudent); passwordModal.classList.remove('visible'); displayAllData(data); resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' }); const rankings = calculateRankings(); const rankIndex = rankings.findIndex(([name]) => name === selectedStudent); if (rankIndex !== -1 && rankIndex < 3) { setTimeout(() => { showCongratulationsModal(rankIndex, selectedStudent); }, 500); } } else { errorMessage.textContent = 'PIN incorrecto. ¡Intenta de nuevo!'; } });
+        verifyPasswordBtn.addEventListener('click', async () => { errorMessage.textContent = ''; try { const data = await fetchRealData(selectedStudent, passwordInput.value); passwordModal.classList.remove('visible'); displayAllData(data); resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' }); const rankings = calculateRankings(); const rankIndex = rankings.findIndex(([name]) => name === selectedStudent); if (rankIndex !== -1 && rankIndex < 3) { setTimeout(() => { showCongratulationsModal(rankIndex, selectedStudent); }, 500); } } catch (error) { errorMessage.textContent = error.message; } });
         passwordModal.addEventListener('click', (e) => { if (e.target === passwordModal) passwordModal.classList.remove('visible'); });
         function showInfoModal(type) {
             const confettiContainer = document.getElementById('confetti-container');
@@ -401,21 +427,40 @@
         infoModalCloseBtn.addEventListener('click', () => infoModal.classList.remove('visible', 'congrats-modal'));
         infoModal.addEventListener('click', (e) => { if (e.target === infoModal) infoModal.classList.remove('visible', 'congrats-modal'); });
         themeToggle.addEventListener('change', () => { if (themeToggle.checked) { document.body.classList.add('dark-mode'); localStorage.setItem('theme', 'dark'); } else { document.body.classList.remove('dark-mode'); localStorage.setItem('theme', 'light'); } });
+        
         window.onload = async () => {
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'dark') { document.body.classList.add('dark-mode'); themeToggle.checked = true; }
             currentYearSpan.textContent = new Date().getFullYear();
             const animationObserver = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    }
-                });
+                entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); } });
             }, { threshold: 0.1 });
-            document.querySelectorAll('.animated-section').forEach((section) => {
-                animationObserver.observe(section);
-            });
-            for (const name of studentNames) { await fetchDummyData(name); }
+            document.querySelectorAll('.animated-section').forEach((section) => { animationObserver.observe(section); });
+            
+            const studentNamesFromAPI = await fetchAllStudentNames();
+            studentListContainer.innerHTML = '';
+            if (studentNamesFromAPI.length > 0) {
+                studentNamesFromAPI.forEach(name => {
+                    const studentElement = document.createElement('div');
+                    studentElement.className = 'student-item animated-section';
+                    studentElement.setAttribute('role', 'button');
+                    studentElement.setAttribute('tabindex', '0');
+                    const initials = getInitials(name);
+                    const color = getColorForName(name);
+                    studentElement.innerHTML = `<div class="student-avatar" style="background-color: ${color};">${initials}</div><span class="student-name">${name}</span>`;
+                    studentListContainer.appendChild(studentElement);
+                    animationObserver.observe(studentElement);
+                });
+                
+                // Para los rankings globales, necesitamos los datos de todos.
+                // Esta es una forma de hacerlo. En una app más grande, se optimizaría.
+                for (const name of studentNamesFromAPI) {
+                    try {
+                        await fetchRealData(name, "1234"); // Usamos un PIN genérico para la carga inicial
+                    } catch(e) { console.warn(`No se pudieron cargar los datos iniciales para ${name}. Puede ser normal si el PIN no coincide para todos en esta carga.`)}
+                }
+            }
+            
             updateRankingsAndStats();
         };
     </script>
