@@ -10,13 +10,13 @@
     <meta name="description" content="Aplicación de seguimiento de conductas y economía de fichas para los estudiantes del Tercero A de Secundaria del Col. Don Bosco Central Particular.">
     <meta name="keywords" content="educación, gamificación, economía de fichas, seguimiento de conducta, Don Bosco, Santa Cruz, Bolivia">
     <meta name="author" content="Luis Alfredo Andia Valverde">
-    <link rel="canonical" href="https://elmejorequipo.github.io/Pruebas/economiadefichas"> <!-- Reemplaza con tu URL final -->
+    <link rel="canonical" href="https://ejorequipo.github.io/"> <!-- Reemplaza con tu URL final -->
 
     <!-- Open Graph (para Facebook, WhatsApp, etc.) -->
     <meta property="og:title" content="Visor de Conductas | Don Bosco | Tercero A">
     <meta property="og:description" content="Una forma divertida y motivadora de seguir el progreso en el aula.">
     <meta property="og:image" content="https://i.imgur.com/your-image.png"> <!-- URL a una imagen representativa para compartir -->
-    <meta property="og:url" content="https://elmejorequipo.github.io/Pruebas/economiadefichas">
+    <meta property="og:url" content="https://ejorequipo.github.io/">
     <meta property="og:type" content="website">
 
     <!-- Twitter Card -->
@@ -313,7 +313,7 @@
 
     <script>
         // --- SELECCIÓN DE ELEMENTOS DEL DOM ---
-        const API_URL = "https://script.google.com/macros/s/AKfycbwDjF2TqMSTji4fTwZRKaviLilDe8JtoIADqqFKrir3ZJBMfRTf5BADE8BAHb_5MPSD/exec";
+        const API_URL = "https://script.google.com/macros/s/AKfycbxE0mQW-770ZpLWIQ0getBP9gF-v26aRQlNIfeUpvvYfzLmJyrp-C2IFQEl1VNZBtBi/exec";
         const studentListContainer = document.getElementById('studentListContainer');
         const passwordModal = document.getElementById('passwordModal');
         const modalTitle = document.getElementById('modalTitle');
@@ -360,10 +360,10 @@
             try {
                 const response = await fetch(`${API_URL}?action=getStudentData&name=${encodeURIComponent(studentName)}&pass=${encodeURIComponent(password)}`);
                 if (!response.ok) throw new Error('Error de red al contactar la API.');
-                const data = await response.json();
-                if (data.error) throw new Error(data.error);
-                allStudentData[studentName] = data;
-                return data;
+                const result = await response.json();
+                if (!result.success) throw new Error(result.error);
+                allStudentData[studentName] = result.data;
+                return result.data;
             } catch (error) {
                 console.error("Error en fetchRealData:", error);
                 throw error;
@@ -374,18 +374,18 @@
             try {
                 const response = await fetch(`${API_URL}?action=getStudentList`);
                 if (!response.ok) throw new Error('Error de red al obtener la lista de estudiantes.');
-                const names = await response.json();
-                if (names.error) throw new Error(names.error);
-                return names;
+                const result = await response.json();
+                if (!result.success) throw new Error(result.error);
+                return result.data;
             } catch (error) {
                 console.error("Error al obtener la lista de estudiantes:", error);
-                studentListContainer.innerHTML = '<p style="text-align:center; color:red;">No se pudo cargar la lista de estudiantes. Revisa la URL de la API y la implementación del script.</p>';
+                studentListContainer.innerHTML = `<p style="text-align:center; color:red;">${error.message}</p>`;
                 return [];
             }
         }
 
-        function calculateTotalScore(data) { const positiveScore = data.adaptive.reduce((sum, b) => sum + b.count, 0) * 20; const negativeScore = data.maladaptive.reduce((sum, b) => sum + b.count, 0) * 10; return positiveScore - negativeScore; }
-        function determineRank(score) { if (score < 200) return "Pequeña Semilla 🌱"; if (score < 800) return "Flor Creciente 🌸"; if (score < 1500) return "Árbol Amistoso �"; return "Sol Radiante ☀️"; }
+        function calculateTotalScore(data) { if (!data || !data.adaptive) return 0; const positiveScore = data.adaptive.reduce((sum, b) => sum + b.count, 0) * 20; const negativeScore = data.maladaptive.reduce((sum, b) => sum + b.count, 0) * 10; return positiveScore - negativeScore; }
+        function determineRank(score) { if (score < 200) return "Pequeña Semilla 🌱"; if (score < 800) return "Flor Creciente �"; if (score < 1500) return "Árbol Amistoso 🌳"; return "Sol Radiante ☀️"; }
         function calculateProgress(score) { const maxScoreGoal = 1500; const progress = (score / maxScoreGoal) * 100; return Math.min(progress, 100); }
         function displayAllData(data) { const score = calculateTotalScore(data); const rank = determineRank(score); const progress = calculateProgress(score); scoreDisplay.textContent = score; rankDisplay.textContent = rank; setTimeout(() => { progressBar.style.width = `${progress}%`; }, 100); displaySolutionMessage(score, selectedStudent); adaptiveList.innerHTML = ''; maladaptiveList.innerHTML = ''; data.adaptive.forEach(b => adaptiveList.appendChild(createBehaviorCard(b, 'adaptive'))); data.maladaptive.forEach(b => maladaptiveList.appendChild(createBehaviorCard(b, 'maladaptive'))); resultsContainer.style.display = 'block'; updateRankingsAndStats(); }
         function createBehaviorCard(behavior, type) { const card = document.createElement('article'); card.className = `behavior-card ${type}-card`; card.innerHTML = `<img src="${behavior.icon}" alt="Icono para ${behavior.name}" class="behavior-icon"><div class="behavior-name">${behavior.name}</div><div class="behavior-count">${behavior.count}</div>`; return card; }
@@ -452,12 +452,11 @@
                     animationObserver.observe(studentElement);
                 });
                 
-                // Para los rankings globales, necesitamos los datos de todos.
-                // Esta es una forma de hacerlo. En una app más grande, se optimizaría.
                 for (const name of studentNamesFromAPI) {
                     try {
-                        await fetchRealData(name, "1234"); // Usamos un PIN genérico para la carga inicial
-                    } catch(e) { console.warn(`No se pudieron cargar los datos iniciales para ${name}. Puede ser normal si el PIN no coincide para todos en esta carga.`)}
+                        // Usamos un PIN genérico para la carga inicial.
+                        await fetchRealData(name, "1234");
+                    } catch(e) { console.warn(`No se pudieron cargar los datos iniciales para ${name}.`)}
                 }
             }
             
