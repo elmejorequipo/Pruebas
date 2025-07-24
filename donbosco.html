@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Colegio Don Bosco Central, Santa Cruz | Formando Buenos Cristianos y Honrados Ciudadanos</title>
+    <meta name="description" content="Sitio oficial del Colegio Don Bosco Central en Santa Cruz. Descubra nuestra propuesta educativa basada en el Sistema Preventivo de Don Bosco, nuestras actividades y el proceso de admisión.">
+    <meta name="keywords" content="Colegio Don Bosco Santa Cruz, colegios privados Santa Cruz, educación salesiana, Sistema Preventivo, admisiones colegio Santa Cruz, Don Bosco Central">
+    <meta name="author" content="Colegio Don Bosco Central, Santa Cruz">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Reset y Variables Globales --- */
+        :root {
+            --color-primario-azul: #003366;
+            --color-secundario-azul-claro: #005b96;
+            --color-acento-amarillo: #ffc107;
+            --color-acento-naranja: #fd7e14;
+            --color-fondo: #f8f9fa;
+            --color-texto: #343a40;
+            --color-blanco: #ffffff;
+            --fuente-titulos: 'Montserrat', sans-serif;
+            --fuente-cuerpo: 'Lato', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--fuente-cuerpo);
+            color: var(--color-texto);
+            background-color: var(--color-fondo);
+            line-height: 1.6;
+        }
+
+     .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--fuente-titulos);
+            color: var(--color-primario-azul);
+            margin-bottom: 1rem;
+        }
+
+        section {
+            padding: 60px 0;
+        }
+
+        /* --- Header y Navegación --- */
+     .main-header {
+            background-color: var(--color-blanco);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+     .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+     .logo {
+            font-family: var(--fuente-titulos);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primario-azul);
+            text-decoration: none;
+        }
+     .logo span {
+            font-size: 0.8rem;
+            display: block;
+            color: var(--color-secundario-azul-claro);
+        }
+
+     .main-nav {
+            display: none; /* Oculto por defecto en móvil */
+        }
+
+     .main-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem; /* Reducido para más items */
+        }
+
+     .main-nav a {
+            text-decoration: none;
+            color: var(--color-primario-azul);
+            font-weight: 600;
+            font-family: var(--fuente-titulos);
+            transition: color 0.3s ease;
+            font-size: 0.95rem; /* Ligeramente reducido */
+        }
+
+     .main-nav a:hover,.main-nav a.active {
+            color: var(--color-acento-naranja);
+        }
+        
+     .nav-toggle {
+            display: block; /* Visible en móvil */
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--color-primario-azul);
+        }
+
+        /* --- Hero Section --- */
+     .hero {
+            background-image: linear-gradient(rgba(0, 51, 102, 0.7), rgba(0, 91, 150, 0.6)), url('https://via.placeholder.com/1920x1080.png?text=Patio+Salesiano+en+Acción');
+            background-size: cover;
+            background-position: center;
+            color: var(--color-blanco);
+            text-align: center;
+            padding: 120px 0;
+        }
+
+     .hero h1 {
+            font-size: 3rem;
+            color: var(--color-blanco);
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+     .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            font-family: var(--fuente-titulos);
+        }
+
+     .cta-button {
+            display: inline-block;
+            background-color: var(--color-acento-amarillo);
+            color: var(--color-primario-azul);
+            padding: 15px 30px;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-family: var(--fuente-titulos);
+        }
+
+     .cta-button:hover {
+            background-color: #ffca2c;
+            transform: translateY(-3px);
+        }
+
+        /* --- Sección Pilares Salesianos --- */
+     .pilares {
+            background-color: var(--color-blanco);
+        }
+     .pilares-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            text-align: center;
+        }
+     .pilar-card {
+            padding: 2rem;
+        }
+     .pilar-card .icon {
+            font-size: 3rem;
+            color: var(--color-secundario-azul-claro);
+            margin-bottom: 1rem;
+        }
+     .pilar-card h3 {
+            color: var(--color-secundario-azul-claro);
+        }
+
+        /* --- Sección Accesos Directos --- */
+     .accesos-directos h2 {
+            text-align: center;
+            font-size: 2rem;
+        }
+     .accesos-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+     .acceso-card {
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            position: relative;
+            overflow: hidden;
+            min-height: 300px;
+        }
+     .acceso-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        }
+     .acceso-card * {
+            position: relative;
+            z-index: 2;
+        }
+     .acceso-card h3 {
+            color: var(--color-blanco);
+            font-size: 1.8rem;
+        }
+     .acceso-card a {
+            color: var(--color-acento-amarillo);
+            text-decoration: none;
+            font-weight: bold;
+        }
+     .acceso-card-1 { background-image: url('https://via.placeholder.com/600x400.png?text=Aula+Moderna'); }
+     .acceso-card-2 { background-image: url('https://via.placeholder.com/600x400.png?text=Jóvenes+en+Pastoral'); }
+     .acceso-card-3 { background-image: url('https://via.placeholder.com/600x400.png?text=Comunidad+Unida'); }
+
+        /* --- Sección Aguinaldo --- */
+      .aguinaldo {
+            background-color: #e9ecef;
+            text-align: center;
+        }
+      .aguinaldo h2 {
+            font-size: 2rem;
+        }
+      .aguinaldo p {
+            max-width: 800px;
+            margin: 1rem auto 2rem auto;
+            font-size: 1.1rem;
+        }
+      .aguinaldo .cta-button {
+            background-color: var(--color-secundario-azul-claro);
+            color: var(--color-blanco);
+        }
+      .aguinaldo .cta-button:hover {
+            background-color: var(--color-primario-azul);
+        }
+
+        /* --- Sección Noticias --- */
+     .noticias {
+            background-color: var(--color-blanco);
+        }
+     .noticias h2 {
+            text-align: center;
+            font-size: 2rem;
+        }
+     .noticias-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+     .noticia-card {
+            background-color: var(--color-fondo);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+     .noticia-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+     .noticia-content {
+            padding: 1.5rem;
+        }
+     .noticia-content .fecha {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-bottom: 0.5rem;
+        }
+     .noticia-content h3 {
+            font-size: 1.2rem;
+        }
+     .noticia-content a {
+            color: var(--color-secundario-azul-claro);
+            text-decoration: none;
+            font-weight: bold;
+        }
+     .noticias .text-center {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        /* --- Footer --- */
+     .main-footer {
+            background-color: var(--color-primario-azul);
+            color: var(--color-blanco);
+            padding: 40px 0;
+        }
+     .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            text-align: center;
+        }
+     .footer-col h4 {
+            font-family: var(--fuente-titulos);
+            margin-bottom: 1rem;
+            color: var(--color-acento-amarillo);
+        }
+     .footer-col p,.footer-col a {
+            color: #ccc;
+            text-decoration: none;
+        }
+     .footer-col a:hover {
+            color: var(--color-blanco);
+        }
+     .social-links a {
+            margin: 0 10px;
+            font-size: 1.5rem;
+        }
+     .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--color-secundario-azul-claro);
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        /* --- Media Queries para Diseño Responsivo (Mobile-First) --- */
+        
+        /* Tablet */
+        @media (min-width: 768px) {
+         .pilares-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+         .accesos-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+         .noticias-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+         .footer-grid {
+                grid-template-columns: repeat(3, 1fr);
+                text-align: left;
+            }
+        }
+
+        /* Desktop */
+        @media (min-width: 1024px) {
+         .nav-toggle {
+                display: none;
+            }
+         .main-nav {
+                display: block;
+            }
+         .hero h1 {
+                font-size: 4rem;
+            }
+         .noticias-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* Estilos para el menú móvil desplegable */
+     .mobile-nav {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+     .mobile-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+     .mobile-nav li {
+            text-align: center;
+        }
+     .mobile-nav a {
+            display: block;
+            padding: 1rem;
+            text-decoration: none;
+            color: var(--color-primario-azul);
+            font-weight: 600;
+            border-bottom: 1px solid #eee;
+        }
+     .mobile-nav.active {
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                Don Bosco Central
+                <span>Santa Cruz</span>
+            </a>
+            
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html" class="active">Inicio</a></li>
+                    <li><a href="nuestro-colegio.html">Nuestro Colegio</a></li>
+                    <li><a href="centro-integral.html">Centro Integral</a></li>
+                    <li><a href="propuesta-educativa.html">Propuesta Educativa</a></li>
+                    <li><a href="vida-salesiana.html">Vida Salesiana</a></li>
+                    <li><a href="admisiones.html">Admisiones</a></li>
+                    <li><a href="comunidad.html">Comunidad</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+
+            <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-nav">
+                &#9776;
+            </button>
+        </div>
+        <nav class="mobile-nav" id="mobile-nav">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="nuestro-colegio.html">Nuestro Colegio</a></li>
+                <li><a href="centro-integral.html">Centro Integral</a></li>
+                <li><a href="propuesta-educativa.html">Propuesta Educativa</a></li>
+                <li><a href="vida-salesiana.html">Vida Salesiana</a></li>
+                <li><a href="admisiones.html">Admisiones</a></li>
+                <li><a href="comunidad.html">Comunidad</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Educación es cosa del corazón</h1>
+                <p>Formando buenos cristianos y honrados ciudadanos en el corazón de Santa Cruz.</p>
+                <a href="admisiones.html" class="cta-button">Proceso de Admisión 2026</a>
+            </div>
+        </section>
+
+        <section class="pilares">
+            <div class="container">
+                <div class="pilares-grid">
+                    <div class="pilar-card">
+                        <div class="icon">🧠</div>
+                        <h3>Razón</h3>
+                        <p>Fomentamos el pensamiento crítico y la lógica en un ambiente de aprendizaje claro y transparente.</p>
+                    </div>
+                    <div class="pilar-card">
+                        <div class="icon">🙏</div>
+                        <h3>Religión</h3>
+                        <p>Vivimos una fe activa y comunitaria, compartiendo valores cristianos en cada aspecto de la vida escolar.</p>
+                    </div>
+                    <div class="pilar-card">
+                        <div class="icon">❤️</div>
+                        <h3>Amorevolezza</h3>
+                        <p>Construimos un ambiente de familia, afecto y respeto, donde cada estudiante se siente valorado y amado.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="accesos-directos">
+            <div class="container">
+                <h2>Explora Nuestra Esencia</h2>
+                <div class="accesos-grid">
+                    <article class="acceso-card acceso-card-1">
+                        <div>
+                            <h3>Propuesta Educativa</h3>
+                            <a href="propuesta-educativa.html">Conoce nuestros niveles →</a>
+                        </div>
+                    </article>
+                    <article class="acceso-card acceso-card-2">
+                        <div>
+                            <h3>Vida Salesiana</h3>
+                            <a href="vida-salesiana.html">Descubre la comunidad →</a>
+                        </div>
+                    </article>
+                    <article class="acceso-card acceso-card-3">
+                        <div>
+                            <h3>Comunidad Don Bosco</h3>
+                            <a href="comunidad.html">Noticias y eventos →</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="aguinaldo">
+            <div class="container">
+                <h2>Aguinaldo 2025: «El sueño que hace soñar»</h2>
+                <p>
+                    Inspirados por el Aguinaldo del Rector Mayor para 2025, celebramos el Bicentenario del sueño que tuvo Juanito Bosco a los nueve años. Este sueño no es solo una memoria, sino el corazón de nuestra misión: un llamado a ser, como Don Bosco, soñadores que acompañan a los jóvenes a descubrir y realizar el gran sueño que Dios tiene para cada uno de ellos. En este año jubilar, renovamos nuestro compromiso de ser "peregrinos de la esperanza" en el mundo juvenil.
+                </p>
+                <a href="vida-salesiana.html" class="cta-button aguinaldo-cta">Descubre cómo vivimos la esperanza</a>
+            </div>
+        </section>
+
+        <section class="noticias">
+            <div class="container">
+                <h2>Últimas Noticias</h2>
+                <div class="noticias-grid">
+                    <article class="noticia-card">
+                        <img src="https://via.placeholder.com/400x250.png?text=Celebración+Salesiana" alt="Estudiantes celebrando un evento salesiano.">
+                        <div class="noticia-content">
+                            <p class="fecha">20 de Julio, 2025</p>
+                            <h3>Gran Celebración del Día de Don Bosco</h3>
+                            <p>Nuestra comunidad se unió para celebrar con alegría y devoción la vida y obra de nuestro fundador, San Juan Bosco.</p>
+                            <a href="noticia-1.html">Leer más →</a>
+                        </div>
+                    </article>
+                    <article class="noticia-card">
+                        <img src="https://via.placeholder.com/400x250.png?text=Logro+Académico" alt="Estudiantes con medallas de olimpiadas científicas.">
+                        <div class="noticia-content">
+                            <p class="fecha">15 de Julio, 2025</p>
+                            <h3>Éxito en las Olimpiadas Científicas Departamentales</h3>
+                            <p>Nuestros estudiantes demuestran su excelencia académica obteniendo medallas en física, química y matemáticas.</p>
+                            <a href="noticia-2.html">Leer más →</a>
+                        </div>
+                    </article>
+                    <article class="noticia-card">
+                        <img src="https://via.placeholder.com/400x250.png?text=Arte+y+Cultura" alt="Jóvenes participando en un taller de música.">
+                        <div class="noticia-content">
+                            <p class="fecha">10 de Julio, 2025</p>
+                            <h3>Inscripciones Abiertas para Talleres de Arte y Música</h3>
+                            <p>Fomentamos el talento y la creatividad. ¡Inscribe a tus hijos en nuestros talleres extracurriculares para la nueva gestión!</p>
+                            <a href="noticia-3.html">Leer más →</a>
+                        </div>
+                    </article>
+                </div>
+                <div class="text-center">
+                    <a href="comunidad.html" class="cta-button">Ver Todas las Noticias</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Colegio Don Bosco Central</h4>
+                    <p>Formando "buenos cristianos y honrados ciudadanos" desde nuestra fundación en Santa Cruz de la Sierra.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Contacto</h4>
+                    <p>
+                        <a href="https://maps.google.com/?q=C/ Gualberto Villarroel Nº 1133, Santa Cruz, Bolivia" target="_blank" rel="noopener noreferrer">
+                            C/ Gualberto Villarroel Nº 1133<br>
+                            Santa Cruz de la Sierra, Bolivia
+                        </a>
+                    </p>
+                    <p><a href="tel:+59133344455">(+591) 3-3344455</a></p>
+                    <p><a href="mailto:contacto@donboscoscz.edu.bo">contacto@donboscoscz.edu.bo</a></p>
+                </div>
+                <div class="footer-col">
+                    <h4>Síguenos</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook" title="Facebook"><img src="https://via.placeholder.com/24x24.png?text=F" alt="Facebook"></a>
+                        <a href="#" aria-label="Instagram" title="Instagram"><img src="https://via.placeholder.com/24x24.png?text=I" alt="Instagram"></a>
+                        <a href="#" aria-label="YouTube" title="YouTube"><img src="https://via.placeholder.com/24x24.png?text=Y" alt="YouTube"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Colegio Don Bosco Central, Santa Cruz. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const mobileNav = document.querySelector('.mobile-nav');
+
+        navToggle.addEventListener('click', () => {
+            const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+            navToggle.setAttribute('aria-expanded',!isExpanded);
+            mobileNav.classList.toggle('active');
+        });
+    </script>
+
+</body>
+</html>
